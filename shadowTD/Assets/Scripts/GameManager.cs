@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour {
     // attributes
 
     // height and width
-    int height;
-    int width;
+    public int height;
+    public int width;
     // char grid representation of the field
     char[,] gridArray;
     // char list representation of the enemies to spawn
