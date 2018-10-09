@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour {
     // Y spawn pos
     int ySpawnPos;
 
+    // access to set everything
+    EnemyManager enemyManager;
+
     // Use this for initialization
     void Start () {
         ReadLevelData();
@@ -36,7 +39,24 @@ public class GameManager : MonoBehaviour {
 
     // sets all data into the other classes
     void SetLevelData() {
+        // set up the spawn queue
+        for (int i = 0; i < enemySpawnList.Length; i++)
+        {
+            // add the appropriate enemy type
+            switch (enemySpawnList[i])
+            {
+                case 'v':
+                    enemyManager.enemySpawnQueue.Add(new Vampire());
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        // set other attributes
+        enemyManager.maxEnemies = maxEnemies;
+        enemyManager.spawnCooldown = spawnCooldown;
+        enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
     }
 
     // reads in level data and sets it all

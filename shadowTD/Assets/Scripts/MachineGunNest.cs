@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Vampire : Enemy {
+public class MachineGunNest : Tower {
 
 	// Use this for initialization
 	void Start () {
-        health = 12;
+        damage = 3;
+        cooldown = .667f;
+        range = 3.0f;
 	}
 	
 	// Update is called once per frame

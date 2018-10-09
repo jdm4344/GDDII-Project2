@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     // Attributes
 
     // hit points
-    int health;
+    protected int health;
     // where it is located
     public Vector3 position;
     // which way it is facing, normalized
