@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour {
 
-    static int width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
-    static int height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
-    public char[,] dataGrid = new char[width, height];
-    public GameObject [,] grid = new GameObject[width, height];
+    static int width;
+    static int height;
+    public char[,] dataGrid;
+    public GameObject[,] grid;
     public GameObject grass;
 
 	// Use this for initialization
 	void Start () {
+        width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
+        height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
+        dataGrid = new char[width, height];
+        grid = new GameObject[width, height];
 		for(int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
