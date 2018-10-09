@@ -1,0 +1,17 @@
+﻿height 10
+width 10
+gggggggggg
+gggggggggg
+gggggggggg
+gggggggggg
+dddddddddd
+gggggggggg
+gggggggggg
+gggggggggg
+gggggggggg
+gggggggggg
+vvvvv
+3
+3
+0
+4
