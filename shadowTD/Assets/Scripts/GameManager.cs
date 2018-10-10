@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour {
     // game grid prefab
     public GameObject gameGridPrefab;
 
-
 	public Vampire vampire;
 
     #endregion
@@ -74,9 +73,14 @@ public class GameManager : MonoBehaviour {
 
     #region GUI Variables
 
-        // 
+    // 
 
     #endregion
+
+    private void Awake()
+    {
+        enemyManager = GetComponent<EnemyManager>();
+    }
 
     // Initialization
     void Start () {

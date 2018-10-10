@@ -256,52 +256,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1599224788
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599224790}
-  - component: {fileID: 1599224789}
-  m_Layer: 0
-  m_Name: EnemyManager_Empty
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1599224789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1599224788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c1922bf6a1e46243ba3814ac95b73ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyList: []
-  enemySpawnQueue: []
-  maxEnemies: 0
-  spawnCooldown: 0
-  enemiesDefeated: 0
-  spawnPoint: {x: 0, y: 0, z: 0}
---- !u!4 &1599224790
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1599224788}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09452111, y: -0.28562698, z: -4.5898438}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876492885
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1876492887}
   - component: {fileID: 1876492886}
+  - component: {fileID: 1876492888}
   m_Layer: 0
   m_Name: GameManager_Empty
   m_TagString: Untagged
@@ -329,7 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61a9c491c1f6dc45b7ebc10b1ecc5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyManager: {fileID: 1599224789}
+  enemyManager: {fileID: 0}
   gameGridPrefab: {fileID: 1932882769294946, guid: 0c1dd700501bda045b2b5d9171e213c8,
     type: 2}
   vampire: {fileID: 114691360555983128, guid: ecb63451d1231af45803d4f705593fbb, type: 2}
@@ -361,3 +316,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876492888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1876492885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1922bf6a1e46243ba3814ac95b73ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList: []
+  enemySpawnQueue: []
+  maxEnemies: 0
+  spawnCooldown: 0
+  enemiesDefeated: 0
+  spawnPoint: {x: 0, y: 0, z: 0}
