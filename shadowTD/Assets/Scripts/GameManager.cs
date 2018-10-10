@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour {
         int xSpawnPos;
         // Y spawn pos
         int ySpawnPos;
+        private bool mapRead = false;
 
     #endregion
 
@@ -50,7 +51,25 @@ public class GameManager : MonoBehaviour {
     #region Game Variables
 
         private bool gameStarted = false;
-        private bool isGameActive = false;
+        private bool isGameActive = true;
+        public bool playerVictory = false;
+        public bool playerDefeat = false;
+
+        public uint difficulty = 1; // Have this here to have scaling for how much money you passively receive
+        private List<Tower> towerList;
+        private List<Tower> purchasableTowers;
+        public int baseHealth = 100;
+        public int funds = 0;
+        public int moneyTickAmount = 2;
+        public float moneyTick = 1.0f;
+        public float curTime = 0.0f;
+
+
+    #endregion
+
+    #region GUI Variables
+
+        // 
 
     #endregion
 
@@ -64,7 +83,8 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
         // Menu and pausing
-        if (Input.GetButtonDown("Esc")) {
+        if (Input.GetButtonDown("Esc")) 
+        {
             isGameActive = !isGameActive;
             if (isGameActive)
                 Debug.Log("Game is Active");
@@ -72,92 +92,125 @@ public class GameManager : MonoBehaviour {
                 Debug.Log("Game is Inactive");
         }
 
-        
-
-
+        // Most gameplay code can be handled here
         if (isGameActive) {
 
+            // Generate funds
+            AddFunds(Time.deltaTime);
 
+            // Adding towers
+            
 
+            // Win/Lose conditions
+            if (baseHealth <= 0 && baseHealth > -999) {
+                playerDefeat = true;
+            } else if (enemyManager.enemiesDefeated) {
+                playerVictory = true;
+            }
+
+            // After action reports and possible scene transitions
+            if (playerVictory) {
+                Debug.Log("Victory!");
+                baseHealth = -999;
+                // Can talk to scene manager and switch scenes here or maybe show a report on screen of stats
+            } else if (playerDefeat) {
+                Debug.Log("Defeat.");
+            }
         }
 	}
 
-    // Called every fixed framerate frame
-    void FixedUpdate() {
+    //
+    void AddFunds(float time) {
+        curTime += time;
 
+        if (curTime >= moneyTick) {
+            curTime = 0;
+            funds += moneyTickAmount;
+            Debug.Log(funds);
+        }
     }
 
     // sets all data into the other classes
     void SetLevelData() {
-        // set up the spawn queue
-        for (int i = 0; i < enemySpawnList.Length; i++)
-        {
-            // add the appropriate enemy type
-            switch (enemySpawnList[i])
+        if (mapRead) {
+            // set up the spawn queue
+            for (int i = 0; i < enemySpawnList.Length; i++)
             {
-                case 'v':
-                    enemyManager.enemySpawnQueue.Add(new Vampire());
-                    break;
-                default:
-                    break;
+                // add the appropriate enemy type
+                switch (enemySpawnList[i])
+                {
+                    case 'v':
+                        enemyManager.enemySpawnQueue.Add(new Vampire());
+                        break;
+                    default:
+                        break;
+                }
             }
-        }
 
-        // set other attributes
-        enemyManager.maxEnemies = maxEnemies;
-        enemyManager.spawnCooldown = spawnCooldown;
-        enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
+            // set other attributes
+            enemyManager.maxEnemies = maxEnemies;
+            enemyManager.spawnCooldown = spawnCooldown;
+            enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
+        }
     }
 
     // reads in level data and sets it all
     void ReadLevelData() {
-        StreamReader reader = new StreamReader("levelInfo.txt");
 
-        string data;
-        // get the height and width and array of blocks
-        data = reader.ReadLine();
-        height = System.Convert.ToInt32(data);
-        data = reader.ReadLine();
-        width = System.Convert.ToInt32(data);
-        // make the array
-        gridArray = new char[width, height];
+        try {
+            StreamReader reader = new StreamReader("levelInfo.txt");
 
-        // get each line that is the grid data
-        for (int i = 0; i < height; i++)
-        {
+            string data;
+            // get the height and width and array of blocks
             data = reader.ReadLine();
-            // put the string data into the array representation
-            for (int j = 0; j < width; j++)
+            height = System.Convert.ToInt32(data);
+            data = reader.ReadLine();
+            width = System.Convert.ToInt32(data);
+            // make the array
+            gridArray = new char[width, height];
+
+            // get each line that is the grid data
+            for (int i = 0; i < height; i++)
             {
-                gridArray[i, j] = data[j];
+                data = reader.ReadLine();
+                // put the string data into the array representation
+                for (int j = 0; j < width; j++)
+                {
+                    gridArray[i, j] = data[j];
+                }
             }
+
+            // get enemy spawn list
+            data = reader.ReadLine();
+            enemySpawnList = new char[data.Length];
+            for (int i = 0; i < data.Length; i++)
+            {
+                enemySpawnList[i] = data[i];
+            }
+
+            // max enemies
+            data = reader.ReadLine();
+            maxEnemies = System.Convert.ToInt32(data);
+
+            // spawn cooldown
+            data = reader.ReadLine();
+            spawnCooldown = System.Convert.ToInt32(data);
+
+            // spawn pos X
+            data = reader.ReadLine();
+            xSpawnPos = System.Convert.ToInt32(data);
+
+            // spawn pos Y
+            data = reader.ReadLine();
+            ySpawnPos = System.Convert.ToInt32(data);
+
+            // close file
+            reader.Close();
+
+            // successful
+            mapRead = true;
+        } catch (FileNotFoundException e) {
+            Debug.Log("Error with reading level data: \n" + e);
         }
-
-        // get enemy spawn list
-        data = reader.ReadLine();
-        enemySpawnList = new char[data.Length];
-        for (int i = 0; i < data.Length; i++)
-        {
-            enemySpawnList[i] = data[i];
-        }
-
-        // max enemies
-        data = reader.ReadLine();
-        maxEnemies = System.Convert.ToInt32(data);
-
-        // spawn cooldown
-        data = reader.ReadLine();
-        spawnCooldown = System.Convert.ToInt32(data);
-
-        // spawn pos X
-        data = reader.ReadLine();
-        xSpawnPos = System.Convert.ToInt32(data);
-
-        // spawn pos Y
-        data = reader.ReadLine();
-        ySpawnPos = System.Convert.ToInt32(data);
-
-        // close file
-        reader.Close();
     }
 }

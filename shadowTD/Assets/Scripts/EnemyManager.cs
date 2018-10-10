@@ -16,6 +16,8 @@ public class EnemyManager : MonoBehaviour {
     public float spawnCooldown;
     // the time since the last enemy spawn
     float lastSpawn;
+    // lets us know when all enemies have been defeated
+    public bool enemiesDefeated;
     // where to spawn the enemies
     public Vector3 spawnPoint;
 
@@ -26,10 +28,19 @@ public class EnemyManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // update when the last enemy was spawned
-        lastSpawn += Time.deltaTime;
-        SpawnNextEnemy();
 
+        // This is here temporarily just so we can have a way to see that the player has won
+        // *  
+        if (Input.GetButton("Space")) {
+            enemiesDefeated = true;
+        }
+        // *
+
+        if (!enemiesDefeated) { 
+            // update when the last enemy was spawned
+            lastSpawn += Time.deltaTime;
+            SpawnNextEnemy();
+        }
 	}
 
     // spawns the next enemy at the spawnPoint once the cooldown is over

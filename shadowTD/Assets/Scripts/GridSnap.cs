@@ -24,7 +24,7 @@ public class GridSnap : MonoBehaviour {
 		} 
 		catch (MissingReferenceException e) 
 		{
-			Debug.Log("Game Manager Not Found : \n" + e);
+			Debug.Log("Game Manager Not Found: \n" + e);
 		}
 	}
 
