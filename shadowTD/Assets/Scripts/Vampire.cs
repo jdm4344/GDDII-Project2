@@ -9,6 +9,8 @@ public class Vampire : Enemy {
 	// Use this for initialization
 	void Start () {
         health = 12;
+        direction = Vector3.right;
+        maxSpeed = 1;
 	}
 	
 	// Update is called once per frame

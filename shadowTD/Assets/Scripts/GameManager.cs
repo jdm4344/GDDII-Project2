@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour {
 
     // Access to set everything
     public EnemyManager enemyManager;
-	public GameGrid gameGrid;
+    // game grid prefab
+    public GameObject gameGridPrefab;
+
 
 	public Vampire vampire;
 
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour {
     void Start () {
         ReadLevelData();
         SetLevelData();
+
+        Instantiate(gameGridPrefab, Vector3.zero, Quaternion.identity);
 	}
 	
 	// Update is called once per frame
@@ -155,7 +159,7 @@ public class GameManager : MonoBehaviour {
             enemyManager.spawnCooldown = spawnCooldown;
             enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
 
-   //         GameObject gameGrid = Instantiate(Resources.Load("GameGrid_Empty"), Vector3.zero, Quaternion.identity);
+            //GameObject gameGrid = Instantiate(Resources.Load("GameGrid_Empty"), Vector3.zero, Quaternion.identity);
 
 			//gameGrid = width;
 			//gameGrid.height = height;
@@ -182,7 +186,7 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < height; i++)
             {
                 data = reader.ReadLine();
-				Debug.Log(data);
+				//Debug.Log(data);
                 // put the string data into the array representation
                 for (int j = 0; j < width; j++)
                 {
