@@ -3,35 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+/// <summary>
+/// Class that handles level generation, regulates other managers (except sceneManager), and deals with
+/// other general realtime events required for gameeplay.
+/// </summary>
 public class GameManager : MonoBehaviour {
 
-    // attributes
+    // Management Variables
+    
+    #region External Managers
 
-    // height and width
-    public int height;
-    public int width;
-    // char grid representation of the field
-    char[,] gridArray;
-    // char list representation of the enemies to spawn
-    char[] enemySpawnList;
-    // max enemies on the field
-    int maxEnemies;
-    // spawn cooldown
-    int spawnCooldown;
-    // X spawn pos
-    int xSpawnPos;
-    // Y spawn pos
-    int ySpawnPos;
+        // Access to set everything
+        public EnemyManager enemyManager;
 
-    private bool tileSnap = true;
-    public bool TileSnap {
-        get { return tileSnap; }
-    }
+    #endregion
 
-    // access to set everything
-    EnemyManager enemyManager;
+    #region Map Generation
 
-    // Use this for initialization
+        // Map Height & Width (Read from file)
+        public int height;
+        public int width;
+        // char grid representation of the field
+        char[,] gridArray;
+        // char list representation of the enemies to spawn
+        char[] enemySpawnList;
+        // max enemies on the field
+        int maxEnemies;
+        // spawn cooldown
+        int spawnCooldown;
+        // X spawn pos
+        int xSpawnPos;
+        // Y spawn pos
+        int ySpawnPos;
+
+    #endregion
+
+    #region Map Regulation
+
+        private bool tileSnap = true;
+        public bool TileSnap {
+            get { return tileSnap; }
+        }
+
+    #endregion
+
+    #region Game Variables
+
+        private bool gameStarted = false;
+        private bool isGameActive = false;
+
+    #endregion
+
+    // Initialization
     void Start () {
         ReadLevelData();
         SetLevelData();
@@ -40,7 +63,29 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        // Menu and pausing
+        if (Input.GetButtonDown("Esc")) {
+            isGameActive = !isGameActive;
+            if (isGameActive)
+                Debug.Log("Game is Active");
+            else
+                Debug.Log("Game is Inactive");
+        }
+
+        
+
+
+        if (isGameActive) {
+
+
+
+        }
 	}
+
+    // Called every fixed framerate frame
+    void FixedUpdate() {
+
+    }
 
     // sets all data into the other classes
     void SetLevelData() {

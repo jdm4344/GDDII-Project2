@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33522467655597334}
   - component: {fileID: 23723838457774962}
   - component: {fileID: 135441161106767066}
+  - component: {fileID: 114575216651752952}
   m_Layer: 0
   m_Name: defenseTower
   m_TagString: Untagged
@@ -84,6 +85,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616908903375906}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114575216651752952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616908903375906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d312b1aa3b351a641b7e7621101f62e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135441161106767066
 SphereCollider:
   m_ObjectHideFlags: 1
