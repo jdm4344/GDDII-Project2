@@ -7,24 +7,24 @@ public class Tower : MonoBehaviour {
     // Attributes
 
     // where it is located
-    Vector3 position;
+    public Vector3 position;
     // which way it is facing, normalized
-    Vector3 direction;
+    public Vector3 direction;
     // the current target
-    Enemy target;
+    public Enemy target;
     // the amount of damage it does
     protected int damage;
     // cooldown between shots, in seconds
     protected float cooldown;
     // how much time has passed since the last shot
-    float timeSinceLastShot;
+    public float timeSinceLastShot;
     // how far it can shoot enemies at
     protected float range;
     // queue of in range enemies
     List<Enemy> inRangeEnemies;
 
     // access to the master list of enemies
-    EnemyManager enemyManager;
+    public EnemyManager enemyManager;
 
 	// Use this for initialization
 	void Start () {
