@@ -38,12 +38,12 @@ public class GameGrid : MonoBehaviour {
 				switch (dataGrid[i, j])
 				{
 					case 'g':
-						Instantiate(grass, new Vector3(j - width / 2, i - height / 2, 0), Quaternion.identity);
-						Debug.Log("instantiated grass block");
+						Instantiate(grass, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity);
+						//Debug.Log("instantiated grass block");
 						break;
 					case 'd':
-						Instantiate(dirt, new Vector3(j - width / 2, i - height / 2, 0), Quaternion.identity);
-						Debug.Log("instantiated dirt block");
+						Instantiate(dirt, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity);
+						//Debug.Log("instantiated dirt block");
 						break;
 					default:
 						break;
@@ -51,7 +51,7 @@ public class GameGrid : MonoBehaviour {
             }
         }
 
-        Debug.Log("skipped instantiating the board");
+        //Debug.Log("skipped instantiating the board");
 	}
 	
 	// Update is called once per frame

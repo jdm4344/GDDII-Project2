@@ -7,14 +7,17 @@ public class Vampire : Enemy {
 	public GameObject vampPrefab;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        base.Start();
         health = 12;
         direction = Vector3.right;
         maxSpeed = 1;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        base.Update();
 	}
 }

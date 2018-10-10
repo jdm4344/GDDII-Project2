@@ -21,12 +21,13 @@ public class Enemy : MonoBehaviour {
     public EnemyManager enemyManager;
 
 	// Use this for initialization
-	void Start () {
+	protected void Start () {
         position = transform.position;
+        //Debug.Log("position set " + transform.position);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update () {
         
         Move();
 	}
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour {
 
     // called every frame, advances the Enemy toward the Base
     private void Move() {
-        position += direction * maxSpeed / Time.deltaTime;
+        position += direction * maxSpeed * Time.deltaTime;
         transform.position = position;
     }
 }

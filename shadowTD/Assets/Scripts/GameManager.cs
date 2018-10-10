@@ -10,7 +10,6 @@ using System.IO;
 public class GameManager : MonoBehaviour {
 
     // Management Variables
-    
     #region External Managers
 
     // Access to set everything
@@ -77,9 +76,12 @@ public class GameManager : MonoBehaviour {
 
     #endregion
 
+    Camera mainCamera;
+
     private void Awake()
     {
         enemyManager = GetComponent<EnemyManager>();
+        mainCamera = Camera.main;
     }
 
     // Initialization
@@ -88,6 +90,8 @@ public class GameManager : MonoBehaviour {
         SetLevelData();
 
         Instantiate(gameGridPrefab, Vector3.zero, Quaternion.identity);
+
+        SetupCamera();
 	}
 	
 	// Update is called once per frame
@@ -161,7 +165,7 @@ public class GameManager : MonoBehaviour {
             // set other attributes
             enemyManager.maxEnemies = maxEnemies;
             enemyManager.spawnCooldown = spawnCooldown;
-            enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
+            enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, -1);
 
             //GameObject gameGrid = Instantiate(Resources.Load("GameGrid_Empty"), Vector3.zero, Quaternion.identity);
 
@@ -231,5 +235,10 @@ public class GameManager : MonoBehaviour {
         } catch (FileNotFoundException e) {
             Debug.Log("Error with reading level data: \n" + e);
         }
+    }
+
+    void SetupCamera()
+    {
+        mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
     }
 }
