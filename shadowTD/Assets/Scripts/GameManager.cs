@@ -155,9 +155,11 @@ public class GameManager : MonoBehaviour {
             enemyManager.spawnCooldown = spawnCooldown;
             enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
 
-			gameGrid.width = width;
-			gameGrid.height = height;
-			gameGrid.dataGrid = gridArray;
+   //         GameObject gameGrid = Instantiate(Resources.Load("GameGrid_Empty"), Vector3.zero, Quaternion.identity);
+
+			//gameGrid = width;
+			//gameGrid.height = height;
+			//gameGrid.dataGrid = gridArray;
         }
     }
 

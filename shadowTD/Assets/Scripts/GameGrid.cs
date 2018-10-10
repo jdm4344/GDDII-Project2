@@ -19,10 +19,13 @@ public class GameGrid : MonoBehaviour {
 		//grid = new GameObject[width, height];
 
 		// hold here until the width and height has been set
-		while (width != 0 && height != 0)
-		{
-			Debug.Log("waiting for height and width to be set");
-		}
+		//while (width != 0 && height != 0)
+		//{
+		//	Debug.Log("waiting for height and width to be set");
+		//}
+
+
+
 		for(int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
@@ -42,6 +45,8 @@ public class GameGrid : MonoBehaviour {
 				}
             }
         }
+
+        Debug.Log("skipped instantiating the board");
 	}
 	
 	// Update is called once per frame

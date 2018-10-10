@@ -51,5 +51,6 @@ public class Enemy : MonoBehaviour {
     // called every frame, advances the Enemy toward the Base
     private void Move() {
         position += direction * maxSpeed / Time.deltaTime;
+        transform.position = position;
     }
 }
