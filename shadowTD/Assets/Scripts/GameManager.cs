@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour {
     // Y spawn pos
     int ySpawnPos;
 
+    private bool tileSnap = true;
+    public bool TileSnap {
+        get { return tileSnap; }
+    }
+
     // access to set everything
     EnemyManager enemyManager;
 
