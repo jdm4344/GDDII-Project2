@@ -96,30 +96,30 @@ public class GameManager : MonoBehaviour {
         //}
 
         // Most gameplay code can be handled here
-        if (isGameActive) {
+        //if (isGameActive) {
 
-            // Generate funds
-            AddFunds(Time.deltaTime);
+        //    // Generate funds
+        //    AddFunds(Time.deltaTime);
 
-            // Adding towers
+        //    // Adding towers
             
 
-            // Win/Lose conditions
-            if (baseHealth <= 0 && baseHealth > -999) {
-                playerDefeat = true;
-            } else if (enemyManager.enemiesDefeated) {
-                playerVictory = true;
-            }
+        //    // Win/Lose conditions
+        //    if (baseHealth <= 0 && baseHealth > -999) {
+        //        playerDefeat = true;
+        //    } else if (enemyManager.enemiesDefeated) {
+        //        playerVictory = true;
+        //    }
 
-            // After action reports and possible scene transitions
-            if (playerVictory) {
-                Debug.Log("Victory!");
-                baseHealth = -999;
-                // Can talk to scene manager and switch scenes here or maybe show a report on screen of stats
-            } else if (playerDefeat) {
-                Debug.Log("Defeat.");
-            }
-        }
+        //    // After action reports and possible scene transitions
+        //    if (playerVictory) {
+        //        Debug.Log("Victory!");
+        //        baseHealth = -999;
+        //        // Can talk to scene manager and switch scenes here or maybe show a report on screen of stats
+        //    } else if (playerDefeat) {
+        //        Debug.Log("Defeat.");
+        //    }
+        //}
 	}
 
     //
@@ -180,10 +180,12 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < height; i++)
             {
                 data = reader.ReadLine();
+				Debug.Log(data);
                 // put the string data into the array representation
                 for (int j = 0; j < width; j++)
                 {
-                    gridArray[i, j] = data[j];
+					gridArray[i, j] = data[j];
+
                 }
             }
 

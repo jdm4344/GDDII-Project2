@@ -46,7 +46,7 @@ public class EnemyManager : MonoBehaviour {
     // spawns the next enemy at the spawnPoint once the cooldown is over
     void SpawnNextEnemy() {
         // check the cooldown and if all enemies have been spawned
-        if (lastSpawn >= spawnCooldown && enemySpawnQueue.Count != 0)
+        if (lastSpawn >= spawnCooldown && enemySpawnQueue.Count != 0 && enemyList.Count < maxEnemies)
         {
             // instantiate the first enemy on the queue
             Instantiate(enemySpawnQueue[0], spawnPoint, Quaternion.identity);

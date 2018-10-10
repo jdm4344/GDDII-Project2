@@ -21,7 +21,7 @@ public class GameGrid : MonoBehaviour {
 		// hold here until the width and height has been set
 		while (width != 0 && height != 0)
 		{
-
+			Debug.Log("waiting for height and width to be set");
 		}
 		for(int i = 0; i < width; i++)
         {
@@ -30,10 +30,12 @@ public class GameGrid : MonoBehaviour {
 				switch (dataGrid[i, j])
 				{
 					case 'g':
-						grid[i, j] = Instantiate(grass, new Vector3(j - 5, i - 5, 0), Quaternion.identity);
+						grid[i, j] = Instantiate(grass, new Vector3(j - width / 2, i - height / 2, 0), Quaternion.identity);
+						Debug.Log("instantiated grass block");
 						break;
 					case 'd':
-						grid[i, j] = Instantiate(dirt, new Vector3(j - 5, i - 5, 0), Quaternion.identity);
+						grid[i, j] = Instantiate(dirt, new Vector3(j - width / 2, i - height / 2, 0), Quaternion.identity);
+						Debug.Log("instantiated dirt block");
 						break;
 					default:
 						break;
