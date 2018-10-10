@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Vampire : Enemy {
 
+	public GameObject vampPrefab;
+
 	// Use this for initialization
 	void Start () {
         health = 12;

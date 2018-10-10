@@ -31,9 +31,9 @@ public class EnemyManager : MonoBehaviour {
 
         // This is here temporarily just so we can have a way to see that the player has won
         // *  
-        if (Input.GetButton("Space")) {
-            enemiesDefeated = true;
-        }
+        //if (Input.GetButton("Space")) {
+        //    enemiesDefeated = true;
+        //}
         // *
 
         if (!enemiesDefeated) { 

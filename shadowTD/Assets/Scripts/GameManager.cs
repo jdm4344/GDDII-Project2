@@ -13,8 +13,11 @@ public class GameManager : MonoBehaviour {
     
     #region External Managers
 
-        // Access to set everything
-        public EnemyManager enemyManager;
+    // Access to set everything
+    public EnemyManager enemyManager;
+	public GameGrid gameGrid;
+
+	public Vampire vampire;
 
     #endregion
 
@@ -24,18 +27,18 @@ public class GameManager : MonoBehaviour {
         public int height;
         public int width;
         // char grid representation of the field
-        char[,] gridArray;
+        public char[,] gridArray;
         // char list representation of the enemies to spawn
-        char[] enemySpawnList;
+        public char[] enemySpawnList;
         // max enemies on the field
-        int maxEnemies;
+        public int maxEnemies;
         // spawn cooldown
-        int spawnCooldown;
+        public int spawnCooldown;
         // X spawn pos
-        int xSpawnPos;
+        public int xSpawnPos;
         // Y spawn pos
-        int ySpawnPos;
-        private bool mapRead = false;
+        public int ySpawnPos;
+        private bool mapRead = true;
 
     #endregion
 
@@ -83,14 +86,14 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		
         // Menu and pausing
-        if (Input.GetButtonDown("Esc")) 
-        {
-            isGameActive = !isGameActive;
-            if (isGameActive)
-                Debug.Log("Game is Active");
-            else
-                Debug.Log("Game is Inactive");
-        }
+        //if (Input.GetButtonDown("Esc")) 
+        //{
+        //    isGameActive = !isGameActive;
+        //    if (isGameActive)
+        //        Debug.Log("Game is Active");
+        //    else
+        //        Debug.Log("Game is Inactive");
+        //}
 
         // Most gameplay code can be handled here
         if (isGameActive) {
@@ -140,7 +143,7 @@ public class GameManager : MonoBehaviour {
                 switch (enemySpawnList[i])
                 {
                     case 'v':
-                        enemyManager.enemySpawnQueue.Add(new Vampire());
+                        enemyManager.enemySpawnQueue.Add(vampire);
                         break;
                     default:
                         break;
@@ -151,6 +154,10 @@ public class GameManager : MonoBehaviour {
             enemyManager.maxEnemies = maxEnemies;
             enemyManager.spawnCooldown = spawnCooldown;
             enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
+
+			gameGrid.width = width;
+			gameGrid.height = height;
+			gameGrid.dataGrid = gridArray;
         }
     }
 
@@ -158,7 +165,7 @@ public class GameManager : MonoBehaviour {
     void ReadLevelData() {
 
         try {
-            StreamReader reader = new StreamReader("levelInfo.txt");
+            StreamReader reader = new StreamReader("Assets/levelInfo.txt");
 
             string data;
             // get the height and width and array of blocks

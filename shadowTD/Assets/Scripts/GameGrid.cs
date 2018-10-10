@@ -4,30 +4,47 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour {
 
-    static int width;
-    static int height;
+    public int width = 0;
+    public int height = 0;
     public char[,] dataGrid;
     public GameObject[,] grid;
     public GameObject grass;
+	public GameObject dirt;
 
 	// Use this for initialization
 	void Start () {
-        width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
-        height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
-        dataGrid = new char[width, height];
-        grid = new GameObject[width, height];
+		//width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
+		//height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
+		//dataGrid = new char[width, height];
+		//grid = new GameObject[width, height];
+
+		// hold here until the width and height has been set
+		while (width != 0 && height != 0)
+		{
+
+		}
 		for(int i = 0; i < width; i++)
         {
             for (int j = 0; j < height; j++)
             {
-                grid[i,j] = Instantiate(grass, new Vector3(j-5, i-5, 0), new Quaternion());
+				switch (dataGrid[i, j])
+				{
+					case 'g':
+						grid[i, j] = Instantiate(grass, new Vector3(j - 5, i - 5, 0), Quaternion.identity);
+						break;
+					case 'd':
+						grid[i, j] = Instantiate(dirt, new Vector3(j - 5, i - 5, 0), Quaternion.identity);
+						break;
+					default:
+						break;
+				}
             }
         }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        CheckMouseOver();
+        //CheckMouseOver();
 	}
 
     // Check to see if the mouse cursor is over a tile
