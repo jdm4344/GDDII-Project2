@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 1876492887}
   - component: {fileID: 1876492886}
   - component: {fileID: 1876492888}
+  - component: {fileID: 1876492889}
   m_Layer: 0
   m_Name: GameManager_Empty
   m_TagString: Untagged
@@ -333,3 +334,17 @@ MonoBehaviour:
   spawnCooldown: 0
   enemiesDefeated: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876492889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1876492885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab987d346219bd4dba18a2703dc9ddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 1617876189067060, guid: 00f0e35c9651b284e853a8a4fa27a367,
+    type: 2}
+  towerList: []

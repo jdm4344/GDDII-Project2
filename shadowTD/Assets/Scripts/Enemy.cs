@@ -20,8 +20,13 @@ public class Enemy : MonoBehaviour {
     // access to the EnemyManager
     public EnemyManager enemyManager;
 
-	// Use this for initialization
-	protected void Start () {
+    protected void Awake()
+    {
+        enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
+    }
+
+    // Use this for initialization
+    protected void Start () {
         position = transform.position;
         //Debug.Log("position set " + transform.position);
 	}

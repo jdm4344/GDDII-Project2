@@ -21,18 +21,22 @@ public class Tower : MonoBehaviour {
     // how far it can shoot enemies at
     protected float range;
     // queue of in range enemies
-    List<Enemy> inRangeEnemies;
+    public List<Enemy> inRangeEnemies = new List<Enemy>();
 
     // access to the master list of enemies
     public EnemyManager enemyManager;
 
-	// Use this for initialization
-	void Start () {
-		
+    protected void Awake()
+    {
+        enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
+    }
+    // Use this for initialization
+    protected void Start () {
+        position = transform.position;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update () {
         timeSinceLastShot += Time.deltaTime;
 
         UpdateInRangeTargets();
@@ -44,17 +48,19 @@ public class Tower : MonoBehaviour {
     void UpdateInRangeTargets() {
         Enemy current;
         // loop through all enemies on the field
-        for (int i = 0; i < enemyManager.enemyList.Capacity; i++)
+        for (int i = 0; i < enemyManager.enemyList.Count; i++)
         {
             current = enemyManager.enemyList[i];
             // in range and not on the list
-            if ((current.position - this.position).magnitude <= range && !inRangeEnemies.Contains(current))
+            if ((current.position - this.position).sqrMagnitude <= range && !inRangeEnemies.Contains(current))
             {
+                Debug.Log("enemy added to in range list");
                 inRangeEnemies.Add(current);
             }
             // not in range and on the list
-            else if ((current.position - this.position).magnitude > range && inRangeEnemies.Contains(current))
+            else if ((current.position - this.position).sqrMagnitude > range && inRangeEnemies.Contains(current))
             {
+                Debug.Log("enemy removed from in range list");
                 inRangeEnemies.Remove(current);
             }
         }
@@ -62,7 +68,7 @@ public class Tower : MonoBehaviour {
 
     // searches for the first vulnerable target in the list of in range targets, sets it to the current target
     void UpdateTarget() {
-        for (int i = 0; i < inRangeEnemies.Capacity; i++)
+        for (int i = 0; i < inRangeEnemies.Count; i++)
         {
             if (inRangeEnemies[i].isVulnerable)
             {

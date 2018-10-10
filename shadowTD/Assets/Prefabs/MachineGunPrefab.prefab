@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33944967715073006}
   - component: {fileID: 23664581236763900}
   - component: {fileID: 136962450214968380}
+  - component: {fileID: 114523449007264782}
   m_Layer: 0
   m_Name: MachineGunPrefab
   m_TagString: Untagged
@@ -67,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1617876189067060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116809917701350}
@@ -170,6 +171,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114523449007264782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1617876189067060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8838f7843d5cb0d47bff4f95dd029cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 0, z: 0}
+  direction: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  timeSinceLastShot: 0
+  enemyManager: {fileID: 0}
 --- !u!136 &136962450214968380
 CapsuleCollider:
   m_ObjectHideFlags: 1
