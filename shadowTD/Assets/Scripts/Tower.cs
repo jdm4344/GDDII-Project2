@@ -98,9 +98,11 @@ public class Tower : MonoBehaviour {
         if (target != null)
         {
             direction = target.position - position;
-            float angle = Vector3.Angle(-Vector3.right, direction);
+            direction.Normalize();
+            //float angle = Vector3.Angle(-Vector3.right, direction);
             //transform.Rotate(0f, 0f, direction);
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.right = -direction;
             Attack();
         }
         else
