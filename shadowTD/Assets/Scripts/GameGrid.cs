@@ -10,6 +10,8 @@ public class GameGrid : MonoBehaviour {
     public List<GameObject> blockList;
     public GameObject grass;
 	public GameObject dirt;
+    private tempTowerManager towerMngr;
+    private GameObject selectedTile;
 
     //access to the game manager
     GameManager gameManager;
@@ -28,6 +30,8 @@ public class GameGrid : MonoBehaviour {
         //}
 
         gameManager = GameObject.Find("GameManager_Empty").GetComponent<GameManager>();
+        towerMngr = gameManager.GetComponent<tempTowerManager>();
+        selectedTile = null;
         width = gameManager.width;
         height = gameManager.height;
         dataGrid = gameManager.gridArray;
@@ -41,12 +45,10 @@ public class GameGrid : MonoBehaviour {
 					case 'g':
 						blockList.Add(Instantiate(grass, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
                         blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-                        //Debug.Log("instantiated grass block");
                         break;
 					case 'd':
 						blockList.Add(Instantiate(dirt, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
                         blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
-                        //Debug.Log("instantiated dirt block");
                         break;
 					default:
 						break;
@@ -60,11 +62,13 @@ public class GameGrid : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         CheckMouseOver();
+        CheckMouseClick();
 	}
 
     //Check to see if the mouse cursor is over a tile
     void CheckMouseOver()
     {
+        bool selected = false;
         for (int i = 0; i < blockList.Count; i++)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -74,12 +78,27 @@ public class GameGrid : MonoBehaviour {
             if (tileCollider.Raycast(ray, out hit, 10.0f))
             {
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
+                selected = true;
+                selectedTile = blockList[i];
             }
 
             else
             {
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 0, 0));
             }
+        }
+        if (!selected)
+        {
+            selectedTile = null;
+        }
+    }
+
+    void CheckMouseClick()
+    {
+        if (selectedTile != null && Input.GetMouseButtonDown(0))
+        {
+            //Debug.Log("Click");
+            towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
         }
     }
 }
