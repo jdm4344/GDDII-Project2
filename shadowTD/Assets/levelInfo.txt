@@ -10,8 +10,8 @@ gggggggggg
 gggggggggg
 gggggggggg
 gggggggggg
-v
-3
-3
+vvvvvvvvvv
+5
+2
 0
 4

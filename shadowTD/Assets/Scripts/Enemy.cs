@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour {
     // removes itself from the EnemyManager's master list and deletes itself
     private void DestroySelf() {
         enemyManager.RemoveEnemy(this);
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     // called every frame, advances the Enemy toward the Base

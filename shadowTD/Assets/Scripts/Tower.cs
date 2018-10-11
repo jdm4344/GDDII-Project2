@@ -16,6 +16,14 @@ public class Tower : MonoBehaviour {
     protected int damage;
     // cooldown between shots, in seconds
     protected float cooldown;
+
+    // debug to see if it shooting
+    bool isShooting;
+    // length of burst
+    float burstLength;
+    // child object
+    Renderer muzzleFlash;
+
     // how much time has passed since the last shot
     public float timeSinceLastShot;
     // how far it can shoot enemies at
@@ -34,7 +42,11 @@ public class Tower : MonoBehaviour {
     protected void Start () {
         position = transform.position;
         direction = Vector3.forward;
-	}
+        isShooting = false;
+
+        muzzleFlash = transform.Find("MG_Pillar").Find("MG_Front").Find("Muzzle_Flash").GetComponent<Renderer>();
+        muzzleFlash.enabled = false;
+    }
 	
 	// Update is called once per frame
 	protected void Update () {
@@ -43,6 +55,7 @@ public class Tower : MonoBehaviour {
         UpdateInRangeTargets();
         UpdateTarget();
         TrackTarget();
+        CheckShooting();
 	}
 
     // updates the list of in range targets
@@ -63,6 +76,7 @@ public class Tower : MonoBehaviour {
                 inRangeEnemies.Remove(current);
             }
         }
+        inRangeEnemies.RemoveAll(delegate (Enemy e) { return e == null; });
     }
 
     // searches for the first vulnerable target in the list of in range targets, sets it to the current target
@@ -102,11 +116,32 @@ public class Tower : MonoBehaviour {
         {
             timeSinceLastShot = 0.0f;
             target.TakeDamage(damage);
+            isShooting = true;
         }
     }
 
     // where to look if it isn't tracking a target
     void Idle() {
         
+    }
+
+    // for debug to visualize shooting
+    void CheckShooting()
+    {
+        if (isShooting)
+        {
+            // turn it on
+            muzzleFlash.enabled = true;
+
+            if (timeSinceLastShot >= burstLength)
+            {
+                isShooting = false;
+            }
+        }
+        else
+        {
+            // turn it off
+            muzzleFlash.enabled = false;
+        }
     }
 }
