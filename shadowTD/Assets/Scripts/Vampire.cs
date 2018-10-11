@@ -17,7 +17,7 @@ public class Vampire : Enemy {
         base.Start();
         health = 12;
         direction = Vector3.right;
-        maxSpeed = 1;
+        maxSpeed = 3;
         isVulnerable = true;
 	}
 	
