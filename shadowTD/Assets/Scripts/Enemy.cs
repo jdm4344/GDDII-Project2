@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour {
     // Attributes
 
     // hit points
-    protected int health;
+    public int health;
     // where it is located
     public Vector3 position;
     // which way it is facing, normalized
@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour {
     // Use this for initialization
     protected void Start () {
         position = transform.position;
+        direction = transform.forward;
         //Debug.Log("position set " + transform.position);
 	}
 	
@@ -56,7 +57,10 @@ public class Enemy : MonoBehaviour {
 
     // called every frame, advances the Enemy toward the Base
     private void Move() {
+        // position
         position += direction * maxSpeed * Time.deltaTime;
         transform.position = position;
+
+        // direction
     }
 }

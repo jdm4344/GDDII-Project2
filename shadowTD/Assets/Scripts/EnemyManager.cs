@@ -49,11 +49,12 @@ public class EnemyManager : MonoBehaviour {
         if (lastSpawn >= spawnCooldown && enemySpawnQueue.Count != 0 && enemyList.Count < maxEnemies)
         {
             // instantiate the first enemy on the queue
-            Instantiate(enemySpawnQueue[0], spawnPoint, Quaternion.Euler(-90, 0, 0));
+            
+            // add to the list
+            enemyList.Add(Instantiate(enemySpawnQueue[0], spawnPoint, Quaternion.Euler(-90, 0, 0)));
             // remove it from the queue
             enemySpawnQueue.RemoveAt(0);
-            // add to the list
-            enemyList.Add(enemySpawnQueue[0]);
+            
             // reset cooldown
             lastSpawn = 0.0f;
         }

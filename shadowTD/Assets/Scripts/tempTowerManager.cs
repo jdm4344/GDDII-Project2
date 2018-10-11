@@ -13,7 +13,7 @@ public class tempTowerManager : MonoBehaviour {
     {
         for (int i = 0; i < 1; i++)
         {
-            towerList.Add(Instantiate(towerPrefab, new Vector3(3 + i, 7, -1), Quaternion.Euler(180, -90, 90)));
+            towerList.Add(Instantiate(towerPrefab, new Vector3(3 + i + .5f, 6 + .5f, -1), Quaternion.identity));
         }
     }
 	

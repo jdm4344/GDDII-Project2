@@ -8,7 +8,7 @@ public class Tower : MonoBehaviour {
 
     // where it is located
     public Vector3 position;
-    // which way it is facing, normalized
+    // direction to the target
     public Vector3 direction;
     // the current target
     public Enemy target;
@@ -33,6 +33,7 @@ public class Tower : MonoBehaviour {
     // Use this for initialization
     protected void Start () {
         position = transform.position;
+        direction = Vector3.forward;
 	}
 	
 	// Update is called once per frame
@@ -54,13 +55,11 @@ public class Tower : MonoBehaviour {
             // in range and not on the list
             if ((current.position - this.position).sqrMagnitude <= range && !inRangeEnemies.Contains(current))
             {
-                Debug.Log("enemy added to in range list");
                 inRangeEnemies.Add(current);
             }
             // not in range and on the list
             else if ((current.position - this.position).sqrMagnitude > range && inRangeEnemies.Contains(current))
             {
-                Debug.Log("enemy removed from in range list");
                 inRangeEnemies.Remove(current);
             }
         }
@@ -84,7 +83,11 @@ public class Tower : MonoBehaviour {
     void TrackTarget() {
         if (target != null)
         {
-            direction = (target.position - this.position).normalized;
+            direction = target.position - position;
+            float angle = Vector3.Angle(-Vector3.right, direction);
+            //transform.Rotate(0f, 0f, direction);
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Attack();
         }
         else
         {
@@ -104,6 +107,6 @@ public class Tower : MonoBehaviour {
 
     // where to look if it isn't tracking a target
     void Idle() {
-        direction = Vector3.up;
+        
     }
 }
