@@ -57,7 +57,7 @@ public class GameGrid : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //CheckMouseOver();
+        CheckMouseOver();
 	}
 
     //Check to see if the mouse cursor is over a tile
@@ -71,12 +71,13 @@ public class GameGrid : MonoBehaviour {
 
             if (tileCollider.Raycast(ray, out hit, 10.0f))
             {
-                blockList[i].GetComponent<Material>().SetColor("_EmissionColor", new Color(89, 89, 89));
+                blockList[i].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+                blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
             }
 
             else
             {
-                blockList[i].GetComponent<Material>().SetColor("_EmissionColor", new Color(0, 0, 0));
+                blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 0, 0));
             }
         }
     }
