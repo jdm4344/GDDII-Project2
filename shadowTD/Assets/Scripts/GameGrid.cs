@@ -40,12 +40,14 @@ public class GameGrid : MonoBehaviour {
 				{
 					case 'g':
 						blockList.Add(Instantiate(grass, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
-						//Debug.Log("instantiated grass block");
-						break;
+                        blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+                        //Debug.Log("instantiated grass block");
+                        break;
 					case 'd':
 						blockList.Add(Instantiate(dirt, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
-						//Debug.Log("instantiated dirt block");
-						break;
+                        blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+                        //Debug.Log("instantiated dirt block");
+                        break;
 					default:
 						break;
 				}
@@ -71,7 +73,6 @@ public class GameGrid : MonoBehaviour {
 
             if (tileCollider.Raycast(ray, out hit, 10.0f))
             {
-                blockList[i].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
             }
 
