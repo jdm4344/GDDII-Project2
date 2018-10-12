@@ -20,7 +20,7 @@ public class Tower : MonoBehaviour {
     // debug to see if it shooting
     bool isShooting;
     // length of burst
-    float burstLength;
+    public float burstLength;
     // child object
     Renderer muzzleFlash;
 
