@@ -13,7 +13,8 @@ public class MachineGunNest : Tower {
     void Start () {
         base.Start();
         damage = 3;
-        cooldown = .1f;
+        cooldown = .333f;
+        burstLength = .167f;
         range = 9.0f;
 	}
 	
