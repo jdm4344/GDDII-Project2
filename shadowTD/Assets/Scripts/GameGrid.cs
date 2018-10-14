@@ -12,6 +12,7 @@ public class GameGrid : MonoBehaviour {
 	public GameObject dirt;
     private tempTowerManager towerMngr;
     private GameObject selectedTile;
+    private GUIManager gUIManager;
 
     //access to the game manager
     GameManager gameManager;
@@ -28,7 +29,7 @@ public class GameGrid : MonoBehaviour {
         //{
         //	Debug.Log("waiting for height and width to be set");
         //}
-
+        gUIManager = GameObject.FindGameObjectWithTag("InGameOverlay").GetComponent<GUIManager>();
         gameManager = GameObject.Find("GameManager_Empty").GetComponent<GameManager>();
         towerMngr = gameManager.GetComponent<tempTowerManager>();
         selectedTile = null;
@@ -75,7 +76,7 @@ public class GameGrid : MonoBehaviour {
             Collider tileCollider = blockList[i].GetComponent<Collider>();
             RaycastHit hit;
 
-            if (tileCollider.Raycast(ray, out hit, 10.0f))
+            if (tileCollider.Raycast(ray, out hit, 10.0f) && !gUIManager.CursorOnUI)
             {
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
                 selected = true;
