@@ -14,14 +14,16 @@ public class GUIManager : MonoBehaviour {
 	public GameObject shop;
 	private RectTransform toolbarRectTransf;
 	private RectTransform shopRectTransf;
-	// ~ Shop Buttons
-	public GameObject MachineGunNest;
-	public GameObject OtherTower;
 
 	// Screen Values
 	private Resolution screenRes;
 
 	// Management Variables
+
+	// ~ Shop Purchase Checks
+	public bool buyingMachineGunNest;
+	
+	// ~ UI Values
 	public float timeToMinimize = 8.0f;
 	public float transitionSpeed = 0.13f;
 	public float padding = 0.25f;
@@ -35,6 +37,8 @@ public class GUIManager : MonoBehaviour {
 	private Vector3 lowerMinMaxButtonPos;
 
 
+
+
 	// Properties
 	public bool CursorOnUI {
 		get { return cursorOnUI; }
@@ -44,6 +48,7 @@ public class GUIManager : MonoBehaviour {
 
 	// Initialization
 	void Start () {
+		buyingMachineGunNest = false;
 		screenRes = Screen.currentResolution;
 		cursorOnUI = false;
 		minimized = false;
@@ -77,14 +82,24 @@ public class GUIManager : MonoBehaviour {
 		else if (minimized && minmaxPress) {
 			Maximize();
 		}
-		else { 
-			Debug.Log("Waiting");
+	}
+	
+
+	// -- Button Press Functions --------
+
+	// 
+	public void MachineGunNestPurchase () { // Attempt
+		if (true/*Check if the player has enough money*/) {
+			buyingMachineGunNest = true;
 		}
 	}
 
 	public void MinMaxPress () {
 		minmaxPress = true;
 	}
+
+
+	// -- Minimize and Maximize Functions --------
 
 	// Minimize function responsible for moving portion of game UI off the screen 
 	void Minimize () {

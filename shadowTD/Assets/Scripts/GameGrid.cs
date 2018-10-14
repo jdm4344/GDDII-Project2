@@ -13,6 +13,7 @@ public class GameGrid : MonoBehaviour {
     private tempTowerManager towerMngr;
     private GameObject selectedTile;
     private GUIManager gUIManager;
+    private bool cancelPlacement;
 
     //access to the game manager
     GameManager gameManager;
@@ -36,6 +37,7 @@ public class GameGrid : MonoBehaviour {
         width = gameManager.width;
         height = gameManager.height;
         dataGrid = gameManager.gridArray;
+        cancelPlacement = false;
         
 		for(int i = 0; i < width; i++)
         {
@@ -64,6 +66,11 @@ public class GameGrid : MonoBehaviour {
 	void Update () {
         CheckMouseOver();
         CheckMouseClick();
+
+        if (cancelPlacement) {
+            gUIManager.buyingMachineGunNest = false;
+            cancelPlacement = false;
+        }
 	}
 
     //Check to see if the mouse cursor is over a tile
@@ -78,9 +85,16 @@ public class GameGrid : MonoBehaviour {
 
             if (tileCollider.Raycast(ray, out hit, 10.0f) && !gUIManager.CursorOnUI)
             {
-                blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
-                selected = true;
-                selectedTile = blockList[i];
+                if (gUIManager.buyingMachineGunNest && !cancelPlacement) {
+                    blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1f, 0f, 0f)); // Can change this to like a transparent version of whatever asset we have for the turret
+                    selected = true;
+                    selectedTile = blockList[i];
+                }
+                else {
+                    blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
+                    selected = true;
+                    selectedTile = blockList[i];
+                }
             }
 
             else
@@ -96,10 +110,17 @@ public class GameGrid : MonoBehaviour {
 
     void CheckMouseClick()
     {
-        if (selectedTile != null && Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && selectedTile != null)
         {
-            //Debug.Log("Click");
-            towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+            if (gUIManager.buyingMachineGunNest) 
+            {
+                towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {   
+            Debug.Log("Cancel");
+            cancelPlacement = true;
         }
     }
 }
