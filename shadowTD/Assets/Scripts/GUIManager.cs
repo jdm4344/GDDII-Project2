@@ -104,7 +104,6 @@ public class GUIManager : MonoBehaviour {
 			shop.transform.position = smoothedPositionShop;
 			toolbar.transform.position = smoothedPositionToolbar;
 			lowerMinMaxButton.transform.position = smoothedPositionMinMaxButton;
-			Debug.Log("HERE");
 		} else {
 			shopRectPos = curShopPos;
 			toolbarRectPos = curToolbarPos;
@@ -112,11 +111,10 @@ public class GUIManager : MonoBehaviour {
 			minimized = true;
 			minmaxPress = false;
 			minimizeTimer = 0;
-			Debug.Log(minimized);
 		}
 	}
 
-	// Maximize function
+	// Maximize function responsible for moving UI content back on screen
 	void Maximize () {
 		Vector3 curShopPos = shop.GetComponent<RectTransform>().position;
 		Vector3 curToolbarPos = toolbar.GetComponent<RectTransform>().position;
@@ -133,7 +131,6 @@ public class GUIManager : MonoBehaviour {
 			shop.transform.position = smoothedPositionShop;
 			toolbar.transform.position = smoothedPositionToolbar;
 			lowerMinMaxButton.transform.position = smoothedPositionMinMaxButton;
-			Debug.Log("HfwefERE");
 		} else {
 			shopRectPos = curShopPos;
 			toolbarRectPos = curToolbarPos;
@@ -141,7 +138,6 @@ public class GUIManager : MonoBehaviour {
 			minimized = false;
 			minmaxPress = false;
 			minimizeTimer = 0;
-			Debug.Log(minimized);
 		}
 	}
 
