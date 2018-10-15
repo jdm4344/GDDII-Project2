@@ -10,6 +10,7 @@ public class GUIManager : MonoBehaviour {
 	public GameObject statTracker;
 	// ~ Lower Content
 	public GameObject lowerMinMaxButton;
+	public GameObject removeTowerButton;
 	public GameObject toolbar;
 	public GameObject shop;
 	private RectTransform toolbarRectTransf;

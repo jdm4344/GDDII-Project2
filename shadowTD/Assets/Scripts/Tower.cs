@@ -34,12 +34,12 @@ public class Tower : MonoBehaviour {
     // access to the master list of enemies
     public EnemyManager enemyManager;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
     }
     // Use this for initialization
-    protected void Start () {
+    protected virtual void Start () {
         position = transform.position;
         direction = Vector3.forward;
         isShooting = false;
@@ -49,7 +49,7 @@ public class Tower : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	protected void Update () {
+	protected virtual void Update () {
         timeSinceLastShot += Time.deltaTime;
 
         UpdateInRangeTargets();
