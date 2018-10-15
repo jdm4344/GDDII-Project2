@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MachineGunNest : Tower {
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
     // Use this for initialization
-    void Start () {
+    protected override void Start () {
         base.Start();
         damage = 3;
         cooldown = .333f;
@@ -19,7 +19,7 @@ public class MachineGunNest : Tower {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected override void Update () {
         base.Update();
 	}
 }
