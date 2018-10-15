@@ -17,21 +17,18 @@ public class GridSnap : MonoBehaviour {
 	// Set Scale and GameManager Reference (Probably will seek this info from a grid manager class)
 	void Awake () {
 		snapScale = gameObject.transform.localScale;
-		try 
-		{
+		try {
 			gm = GameObject.FindGameObjectsWithTag("GameManager")[0].GetComponent<GameManager>();
 			snap = gm.TileSnap;
 		} 
-		catch (MissingReferenceException e) 
-		{
+		catch (MissingReferenceException e) {
 			Debug.Log("Game Manager Not Found: \n" + e);
 		}
 	}
 
 	// Initializations
 	void Start () {
-        if (snap) 
-		{
+        if (snap) {
             Vector3 newVector = GetSnapPos(new Vector3());
             transform.position = newVector;
         }
@@ -40,28 +37,23 @@ public class GridSnap : MonoBehaviour {
     // Move object position to closest integer
     Vector3 GetSnapPos(Vector3 newVector)
     {
-        if (transform.position.x % snapScale.x < snapScale.x / 2 + offSetX) 
-        {
+        if (transform.position.x % snapScale.x < snapScale.x / 2 + offSetX) {
 			if (transform.position.x >= 0) {
             	newVector.x = offSetX + Mathf.FloorToInt(transform.position.x) - (Mathf.FloorToInt(transform.position.x) % snapScale.x);
 			} else {
 				newVector.x = offSetX + Mathf.FloorToInt(transform.position.x) - Mathf.Abs((Mathf.FloorToInt(transform.position.x) % snapScale.x));
 			}
 		}
-        else
-        {
+        else {
             newVector.x = offSetX + Mathf.FloorToInt(transform.position.x + snapScale.x) - (Mathf.FloorToInt(transform.position.x) % snapScale.x);
         }
 
-        if (transform.position.y % snapScale.y < snapScale.y / 2) 
-        {
+        if (transform.position.y % snapScale.y < snapScale.y / 2) {
             newVector.y = offSetY + Mathf.FloorToInt(transform.position.y) - (Mathf.FloorToInt(transform.position.y) % snapScale.y);
 		}
-        else
-        {
+        else {
             newVector.y = offSetY + Mathf.FloorToInt(transform.position.y + snapScale.y) - (Mathf.FloorToInt(transform.position.y) % snapScale.y);
         }
-
         return newVector;
     }
 }

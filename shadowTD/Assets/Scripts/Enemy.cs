@@ -20,20 +20,20 @@ public class Enemy : MonoBehaviour {
     // access to the EnemyManager
     public EnemyManager enemyManager;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
     }
 
     // Use this for initialization
-    protected void Start () {
+    protected virtual void Start () {
         position = transform.position;
         direction = transform.forward;
         //Debug.Log("position set " + transform.position);
 	}
 	
 	// Update is called once per frame
-	protected void Update () {
+	protected virtual void Update () {
         
         Move();
 	}

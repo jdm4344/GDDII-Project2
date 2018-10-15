@@ -6,23 +6,23 @@ public class Vampire : Enemy {
 
 	public GameObject vampPrefab;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
 
     // Use this for initialization
-    void Start ()
+    protected override void Start ()
     {
         base.Start();
         health = 12;
         direction = Vector3.right;
-        maxSpeed = 1;
+        maxSpeed = 3;
         isVulnerable = true;
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	protected override void Update ()
     {
         base.Update();
 	}

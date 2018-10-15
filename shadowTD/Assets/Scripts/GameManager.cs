@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour {
         // max enemies on the field
         public int maxEnemies;
         // spawn cooldown
-        public int spawnCooldown;
+        public float spawnCooldown;
         // X spawn pos
         public int xSpawnPos;
         // Y spawn pos
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour {
 
             // spawn cooldown
             data = reader.ReadLine();
-            spawnCooldown = System.Convert.ToInt32(data);
+            spawnCooldown = (float)System.Convert.ToDouble(data);
 
             // spawn pos X
             data = reader.ReadLine();
