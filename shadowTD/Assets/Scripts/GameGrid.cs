@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour {
 
+    // Variables
+    // Managers
+    GameManager gameManager;
+    private GUIManager gUIManager;
+    private tempTowerManager towerMngr;
+    // Script variables
     public int width = 0;
     public int height = 0;
     public char[,] dataGrid;
-    public List<GameObject> blockList;
-    public GameObject grass;
-	public GameObject dirt;
-    private tempTowerManager towerMngr;
-    private GameObject selectedTile;
-    private GUIManager gUIManager;
+    public List<GameObject> blockList; // Keeps track of terrain grid objects
+    public List<GameObject> turretList; // Keeps track of turret objects
+    public char[] turretTypes; // Keeps track of turret types at selectedIndex location
+    private GameObject selectedTile; // Terrain object that is currently moused-over
+    private int selectedIndex; // Index of selectedTile in blockList
     private bool cancelPlacement;
+    // Prefabs
+    public GameObject grass;
+    public GameObject dirt;
 
-    //access to the game manager
-    GameManager gameManager;
-
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         //width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
         //height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
         //dataGrid = new char[width, height];
@@ -38,6 +43,7 @@ public class GameGrid : MonoBehaviour {
         height = gameManager.height;
         dataGrid = gameManager.gridArray;
         cancelPlacement = false;
+        turretList = new List<GameObject>();
         
 		for(int i = 0; i < width; i++)
         {
@@ -45,21 +51,30 @@ public class GameGrid : MonoBehaviour {
             {
 				switch (dataGrid[i, j])
 				{
-					case 'g':
+					case 'g': //
 						blockList.Add(Instantiate(grass, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
                         blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
                         break;
-					case 'd':
+					case 'd': //
 						blockList.Add(Instantiate(dirt, new Vector3(j + 0.5f, i + 0.5f, 0), Quaternion.identity));
                         blockList[blockList.Count - 1].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
                         break;
 					default:
 						break;
 				}
+
+                // Populate turretList with empyt indices
+                turretList.Add(null);
             }
         }
 
-        //Debug.Log("skipped instantiating the board");
+        turretTypes = new char[turretList.Count];
+
+        for (int i = 0; i < turretTypes.Length; i++)
+        {
+            turretTypes[i] = 'e';
+        }
+
 	}
 	
 	// Update is called once per frame
@@ -89,11 +104,13 @@ public class GameGrid : MonoBehaviour {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1f, 0f, 0f)); // Can change this to like a transparent version of whatever asset we have for the turret
                     selected = true;
                     selectedTile = blockList[i];
+                    selectedIndex = i;
                 }
                 else {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
                     selected = true;
                     selectedTile = blockList[i];
+                    selectedIndex = i;
                 }
             }
 
@@ -112,9 +129,12 @@ public class GameGrid : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) && selectedTile != null)
         {
-            if (gUIManager.buyingMachineGunNest) 
+            if (gUIManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
             {
-                towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+                GameObject newTurret = Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity);
+                towerMngr.towerList.Add(newTurret);
+                turretList[selectedIndex] = newTurret;
+                turretTypes[selectedIndex] = 't';
             }
         }
         if (Input.GetMouseButtonDown(1))
