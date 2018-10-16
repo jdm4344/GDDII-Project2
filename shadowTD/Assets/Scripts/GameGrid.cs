@@ -140,7 +140,7 @@ public class GameGrid : MonoBehaviour {
         if (selectedTile != null && Input.GetMouseButtonDown(1))
         {
             //Debug.Log("Click");
-            towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+            towerManager.towerList.Add(Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
         }
     }
 }

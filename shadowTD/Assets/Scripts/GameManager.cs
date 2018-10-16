@@ -225,5 +225,6 @@ public class GameManager : MonoBehaviour {
     void SetupCamera()
     {
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
+        mainCamera.GetComponent<CameraMovement>().initPosition();
     }
 }
