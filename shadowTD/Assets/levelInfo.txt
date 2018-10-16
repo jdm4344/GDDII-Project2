@@ -10,8 +10,13 @@ gggggggggg
 gggggggggg
 gggggggggg
 gggggggggg
-vvvvvvvvvvvvvvvvvvvv
+15
+4
+vvv
+vvvvv
+vvvvvvvvvv
+vvvvvvvvvvvvvvv
 10
-.333
+1
 0
 4

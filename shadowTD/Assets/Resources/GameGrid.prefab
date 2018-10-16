@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4386631392698522}
   - component: {fileID: 114935906884901398}
   m_Layer: 0
-  m_Name: GameGrid_Empty
+  m_Name: GameGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,5 +53,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 0
   height: 0
+  blockList: []
+  turretList: []
+  turretTypes: 
   grass: {fileID: 1886074513951760, guid: a45572cc22160654687ca06789632f92, type: 2}
   dirt: {fileID: 1250513353246096, guid: 3b125725cc4019147b0375737a784422, type: 2}
+  water: {fileID: 0}
+  baseTent: {fileID: 0}

@@ -15,10 +15,11 @@ public class Vampire : Enemy {
     protected override void Start ()
     {
         base.Start();
-        health = 12;
+        health = 36;
         direction = Vector3.right;
-        maxSpeed = 3;
+        maxSpeed = 2;
         isVulnerable = true;
+        reward = 2;
 	}
 	
 	// Update is called once per frame

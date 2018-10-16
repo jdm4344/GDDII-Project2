@@ -6,40 +6,61 @@ public class Enemy : MonoBehaviour {
 
     // Attributes
 
-    // hit points
-    public int health;
     // where it is located
     public Vector3 position;
     // which way it is facing, normalized
     public Vector3 direction;
+
+    // hit points
+    public int health;
     // how fast it can move
     public float maxSpeed;
     // can it take damage
     public bool isVulnerable;
+    // money rewarded on kill
+    public int reward;
 
-    // access to the EnemyManager
+    // grid to use for pathfinding
+    char[,] gridTerrain;
+
+    // access to Managers
+    public GameGrid gameGrid;
     public EnemyManager enemyManager;
 
     protected virtual void Awake()
     {
-        enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
+        gameGrid = GameObject.Find("GameGrid(Clone)").GetComponent<GameGrid>();
+        enemyManager = GameObject.Find("GameManager").GetComponent<EnemyManager>();
     }
 
     // Use this for initialization
-    protected virtual void Start () {
+    protected virtual void Start()
+    {
+        gridTerrain = gameGrid.dataGrid;
+
         position = transform.position;
         direction = transform.forward;
-        //Debug.Log("position set " + transform.position);
 	}
 	
 	// Update is called once per frame
-	protected virtual void Update () {
-        
+	protected virtual void Update()
+    {
         Move();
 	}
 
+    public void MakeVulnerable()
+    {
+        isVulnerable = true;
+    }
+
+    public void MakeInvulnerable()
+    {
+        isVulnerable = false;
+    }
+
     // handles subtracting from health and 'killing off' the emeny, called by the Towers
-    public void TakeDamage(int amount) {
+    public void TakeDamage(int amount)
+    {
         // subtract from health
         health -= amount;
         // kill it
@@ -50,17 +71,21 @@ public class Enemy : MonoBehaviour {
     }
 
     // removes itself from the EnemyManager's master list and deletes itself
-    private void DestroySelf() {
+    private void DestroySelf()
+    {
         enemyManager.RemoveEnemy(this);
         Destroy(this.gameObject);
     }
 
     // called every frame, advances the Enemy toward the Base
-    private void Move() {
+    private void Move()
+    {
         // position
         position += direction * maxSpeed * Time.deltaTime;
         transform.position = position;
 
         // direction
+        
+        transform.right = direction;
     }
 }
