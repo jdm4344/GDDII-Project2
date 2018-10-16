@@ -842,13 +842,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1311199858}
-  m_LocalRotation: {x: 0.5548298, y: -0.11066655, z: -0.076348566, w: 0.8210285}
-  m_LocalPosition: {x: 5, y: 3.44, z: 0.03224426}
+  m_LocalRotation: {x: -0.2500001, y: -0.2500001, z: -0.06698735, w: 0.93301266}
+  m_LocalPosition: {x: 0, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 63.401005, y: -36.518, z: -33.661003}
+  m_LocalEulerAnglesHint: {x: 330, y: 330, z: 0}
 --- !u!1 &1331954317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 1876492888}
   - component: {fileID: 1876492889}
   m_Layer: 0
-  m_Name: GameManager_Empty
+  m_Name: GameManager
   m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,22 +1168,20 @@ MonoBehaviour:
   enemyManager: {fileID: 0}
   gameGridPrefab: {fileID: 1932882769294946, guid: 0c1dd700501bda045b2b5d9171e213c8,
     type: 2}
-  vampire: {fileID: 114979047798453844, guid: 87a5a486a64aa414f94c6dffe16febfc, type: 2}
+  baseTentPrefab: {fileID: 1151399809654882, guid: 81ce5f94781629448b4cfa719732393b,
+    type: 2}
+  vampirePrefab: {fileID: 114811068394748666, guid: dc5b5569ed0ab9e429ec1f2c38265a76,
+    type: 2}
   height: 0
   width: 0
-  enemySpawnList: 
+  waveSize: 0
+  waves: 0
   maxEnemies: 0
   spawnCooldown: 0
   xSpawnPos: 0
   ySpawnPos: 0
-  playerVictory: 0
-  playerDefeat: 0
-  difficulty: 1
-  baseHealth: 100
+  victory: 0
   funds: 0
-  moneyTickAmount: 2
-  moneyTick: 1
-  curTime: 0
 --- !u!4 &1876492887
 Transform:
   m_ObjectHideFlags: 0
@@ -1191,7 +1189,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1876492885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09452111, y: -0.28562698, z: -4.5898438}
+  m_LocalPosition: {x: 15, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1208,11 +1206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1922bf6a1e46243ba3814ac95b73ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveSize: 0
+  waves: 0
   enemyList: []
   enemySpawnQueue: []
   maxEnemies: 0
   spawnCooldown: 0
-  enemiesDefeated: 0
   spawnPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &1876492889
 MonoBehaviour:
@@ -1225,7 +1224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ab987d346219bd4dba18a2703dc9ddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1804356662799646, guid: 00f0e35c9651b284e853a8a4fa27a367,
+  machineGunPrefab: {fileID: 1796460948627980, guid: e0d0ab3220acc9a4393c5806b7049d4d,
     type: 2}
   towerList: []
 --- !u!1 &1906485065
@@ -1481,7 +1480,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2077357862}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.32733336
+  m_Size: 0.32733333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1591,7 +1590,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2058582666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 0, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

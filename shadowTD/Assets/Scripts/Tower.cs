@@ -36,7 +36,7 @@ public class Tower : MonoBehaviour {
 
     protected virtual void Awake()
     {
-        enemyManager = GameObject.Find("GameManager_Empty").GetComponent<EnemyManager>();
+        enemyManager = GameObject.Find("GameManager").GetComponent<EnemyManager>();
     }
     // Use this for initialization
     protected virtual void Start () {
@@ -44,22 +44,22 @@ public class Tower : MonoBehaviour {
         direction = Vector3.forward;
         isShooting = false;
 
-        muzzleFlash = transform.Find("MG_Pillar").Find("MG_Front").Find("Muzzle_Flash").GetComponent<Renderer>();
-        muzzleFlash.enabled = false;
+        
     }
 	
 	// Update is called once per frame
-	protected virtual void Update () {
+	protected virtual void Update ()
+    {
         timeSinceLastShot += Time.deltaTime;
 
         UpdateInRangeTargets();
         UpdateTarget();
         TrackTarget();
-        CheckShooting();
 	}
 
     // updates the list of in range targets
-    void UpdateInRangeTargets() {
+    void UpdateInRangeTargets()
+    {
         Enemy current;
         // loop through all enemies on the field
         for (int i = 0; i < enemyManager.enemyList.Count; i++)
@@ -125,25 +125,5 @@ public class Tower : MonoBehaviour {
     // where to look if it isn't tracking a target
     void Idle() {
         
-    }
-
-    // for debug to visualize shooting
-    void CheckShooting()
-    {
-        if (isShooting)
-        {
-            // turn it on
-            muzzleFlash.enabled = true;
-
-            if (timeSinceLastShot >= burstLength)
-            {
-                isShooting = false;
-            }
-        }
-        else
-        {
-            // turn it off
-            muzzleFlash.enabled = false;
-        }
     }
 }
