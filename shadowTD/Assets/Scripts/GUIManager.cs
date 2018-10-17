@@ -11,10 +11,10 @@ public class GUIManager : MonoBehaviour {
 	// ~ Lower Content
 	public GameObject lowerMinMaxButton;
 	public GameObject removeTowerButton;
-	public GameObject toolbar;
 	public GameObject shop;
-	private RectTransform toolbarRectTransf;
+	public GameObject toolbar;
 	private RectTransform shopRectTransf;
+	private RectTransform toolbarRectTransf;
 
 	// Screen Values
 	private Resolution screenRes;
@@ -25,9 +25,9 @@ public class GUIManager : MonoBehaviour {
 	public bool buyingMachineGunNest;
 	
 	// ~ UI Values
+	public float padding = 0.25f;	
 	public float timeToMinimize = 8.0f;
 	public float transitionSpeed = 0.13f;
-	public float padding = 0.25f;
 
 	private bool cursorOnUI;
 	private bool minimized;
@@ -36,8 +36,6 @@ public class GUIManager : MonoBehaviour {
 	private Vector3 toolbarRectPos;
 	private Vector3 shopRectPos;
 	private Vector3 lowerMinMaxButtonPos;
-
-
 
 
 	// Properties
@@ -88,8 +86,7 @@ public class GUIManager : MonoBehaviour {
 
 	// -- Button Press Functions --------
 
-	// 
-	public void MachineGunNestPurchase () { // Attempt
+	public void MachineGunNestPurchase () { // Attempt to purchase (GameGrid will handle the remaining checks)
 		if (true/*Check if the player has enough money*/) {
 			buyingMachineGunNest = true;
 		}
