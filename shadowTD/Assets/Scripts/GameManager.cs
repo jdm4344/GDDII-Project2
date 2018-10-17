@@ -12,67 +12,80 @@ public class GameManager : MonoBehaviour {
     // Management Variables
     #region External Managers
 
-    // Access to set everything
+    // access to set everything
     public EnemyManager enemyManager;
     // game grid prefab
     public GameObject gameGridPrefab;
 
-	public Vampire vampire;
+    // base prefab
+    public GameObject baseTentPrefab;
+    
+    // enemy prefab types
+	public Vampire vampirePrefab;
 
     #endregion
 
     #region Map Generation
 
-        // Map Height & Width (Read from file)
-        public int height;
-        public int width;
-        // char grid representation of the field
-        public char[,] gridArray;
-        // char list representation of the enemies to spawn
-        public char[] enemySpawnList;
-        // max enemies on the field
-        public int maxEnemies;
-        // spawn cooldown
-        public float spawnCooldown;
-        // X spawn pos
-        public int xSpawnPos;
-        // Y spawn pos
-        public int ySpawnPos;
-        private bool mapRead = true;
+    // map height & width (read from file)
+    public int height;
+    public int width;
+
+    // 2D char array of every type of terrain for the grid
+    public char[,] gridArray;
+
+    // how many enemies are in the largest wave
+    public int waveSize;
+
+    // number of waves
+    public int waves;
+
+    // char array of the enemies to spawn
+    public char[,] enemySpawnArray;
+
+    // max enemies on the field
+    public int maxEnemies;
+
+    // cooldown between individual enemy spawns
+    public float spawnCooldown;
+
+    // spawn pos
+    public int xSpawnPos;
+    public int ySpawnPos;
+
+    // 2D char array of where towers are on the grid
+    public char[,] towerArray;
+
+    // 
+    private bool mapRead = true;
 
     #endregion
 
     #region Map Regulation
 
-        private bool tileSnap = true;
-        public bool TileSnap {
-            get { return tileSnap; }
-        }
+    // getter and setter for tileSnap
+    private bool tileSnap = true;
+    public bool TileSnap
+    {
+        get { return tileSnap; }
+    }
 
     #endregion
 
     #region Game Variables
 
-        private bool gameStarted = false;
-        private bool isGameActive = true;
-        public bool playerVictory = false;
-        public bool playerDefeat = false;
+    public bool victory;
+    
+    // costs and purchasing
+    public int funds;
 
-        public uint difficulty = 1; // Have this here to have scaling for how much money you passively receive
-        private List<Tower> towerList;
-        private List<Tower> purchasableTowers;
-        public int baseHealth = 100;
-        public int funds = 0;
-        public int moneyTickAmount = 2;
-        public float moneyTick = 1.0f;
-        public float curTime = 0.0f;
-
+    // game state
+    private bool gameStarted;
+    private bool paused;
 
     #endregion
 
     #region GUI Variables
-
-    // 
 
     #endregion
 
@@ -87,106 +100,60 @@ public class GameManager : MonoBehaviour {
     // Initialization
     void Start () {
         ReadLevelData();
-        SetLevelData();
+        SetEnemyManagerData();
 
         Instantiate(gameGridPrefab, Vector3.zero, Quaternion.identity);
+
+
+        // hard coded base location
+        Instantiate(baseTentPrefab, new Vector3(5.0f + .5f, 9.0f + .5f, -.875f), Quaternion.identity);
 
         SetupCamera();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
-        // Menu and pausing
-        //if (Input.GetButtonDown("Esc")) 
-        //{
-        //    isGameActive = !isGameActive;
-        //    if (isGameActive)
-        //        Debug.Log("Game is Active");
-        //    else
-        //        Debug.Log("Game is Inactive");
-        //}
-
-        // Most gameplay code can be handled here
-        //if (isGameActive) {
-
-        //    // Generate funds
-        //    AddFunds(Time.deltaTime);
-
-        //    // Adding towers
-            
-
-        //    // Win/Lose conditions
-        //    if (baseHealth <= 0 && baseHealth > -999) {
-        //        playerDefeat = true;
-        //    } else if (enemyManager.enemiesDefeated) {
-        //        playerVictory = true;
-        //    }
-
-        //    // After action reports and possible scene transitions
-        //    if (playerVictory) {
-        //        Debug.Log("Victory!");
-        //        baseHealth = -999;
-        //        // Can talk to scene manager and switch scenes here or maybe show a report on screen of stats
-        //    } else if (playerDefeat) {
-        //        Debug.Log("Defeat.");
-        //    }
-        //}
 	}
 
-    //
-    void AddFunds(float time) {
-        curTime += time;
-
-        if (curTime >= moneyTick) {
-            curTime = 0;
-            funds += moneyTickAmount;
-            Debug.Log(funds);
-        }
+    // called when an enemy is killed
+    public void AddFunds(int income)
+    {
+        funds += income;
     }
 
-    // sets all data into the other classes
-    void SetLevelData() {
-        if (mapRead) {
-            // set up the spawn queue
-            for (int i = 0; i < enemySpawnList.Length; i++)
-            {
-                // add the appropriate enemy type
-                switch (enemySpawnList[i])
-                {
-                    case 'v':
-                        enemyManager.enemySpawnQueue.Add(vampire);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            // set other attributes
+    // sets attributes in the enemy manager
+    void SetEnemyManagerData()
+    {
+        if (mapRead)
+        {
+            // set attributes
+            enemyManager.waves = waves;
+            enemyManager.waveSize = waveSize;
+            enemyManager.enemySpawnArray = enemySpawnArray;
             enemyManager.maxEnemies = maxEnemies;
             enemyManager.spawnCooldown = spawnCooldown;
             enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, -1);
-
-            //GameObject gameGrid = Instantiate(Resources.Load("GameGrid_Empty"), Vector3.zero, Quaternion.identity);
-
-			//gameGrid = width;
-			//gameGrid.height = height;
-			//gameGrid.dataGrid = gridArray;
         }
     }
 
-    // reads in level data and sets it all
-    void ReadLevelData() {
-
-        try {
+    // reads in level data and saves it all
+    void ReadLevelData()
+    {
+        try
+        {
             StreamReader reader = new StreamReader("Assets/levelInfo.txt");
 
+            // temporary buffer
             string data;
+
             // get the height and width and array of blocks
             data = reader.ReadLine();
             height = System.Convert.ToInt32(data);
             data = reader.ReadLine();
             width = System.Convert.ToInt32(data);
+
             // make the array
             gridArray = new char[width, height];
 
@@ -194,7 +161,7 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < height; i++)
             {
                 data = reader.ReadLine();
-				//Debug.Log(data);
+
                 // put the string data into the array representation
                 for (int j = 0; j < width; j++)
                 {
@@ -203,19 +170,34 @@ public class GameManager : MonoBehaviour {
                 }
             }
 
-            // get enemy spawn list
+            // get the max wave size
             data = reader.ReadLine();
-            enemySpawnList = new char[data.Length];
-            for (int i = 0; i < data.Length; i++)
+            waveSize = System.Convert.ToInt32(data);
+
+            // get how many waves there are
+            data = reader.ReadLine();
+            waves = System.Convert.ToInt32(data);
+
+            // make the array
+            enemySpawnArray = new char[waves, waveSize];
+
+            // get each line that is enemy wave spawn data
+            for (int i = 0; i < waves; i++)
             {
-                enemySpawnList[i] = data[i];
+                data = reader.ReadLine();
+
+                // put the string data into the array representation
+                for (int j = 0; j < data.Length; j++)
+                {
+                    enemySpawnArray[i, j] = data[j];
+                }
             }
 
-            // max enemies
+            // max enemies on screen at once
             data = reader.ReadLine();
             maxEnemies = System.Convert.ToInt32(data);
 
-            // spawn cooldown
+            // spawn cooldown between enemies
             data = reader.ReadLine();
             spawnCooldown = (float)System.Convert.ToDouble(data);
 
@@ -232,13 +214,17 @@ public class GameManager : MonoBehaviour {
 
             // successful
             mapRead = true;
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             Debug.Log("Error with reading level data: \n" + e);
         }
     }
 
+    // initial position of the main camera
     void SetupCamera()
     {
         mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
+        mainCamera.GetComponent<CameraMovement>().initPosition();
     }
 }

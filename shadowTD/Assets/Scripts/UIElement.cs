@@ -15,9 +15,9 @@ public class UIElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
 	public void OnPointerEnter(PointerEventData eventData) {
 		gUIManager.CursorOnUI = true;
-		if (this.gameObject.GetComponent<Button>() is UnityEngine.UI.Button) { 
-			Debug.Log("Type check test");
-		}
+		//if (this.gameObject.GetComponent<Button>() is UnityEngine.UI.Button) { 
+		//	Debug.Log("Type check test");
+		//}
 	}
 
 	public void OnPointerExit(PointerEventData eventData) {

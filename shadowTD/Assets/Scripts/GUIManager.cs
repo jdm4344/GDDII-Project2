@@ -8,6 +8,7 @@ public class GUIManager : MonoBehaviour {
 	// UI Element References
 	// ~ Upper Content
 	public GameObject statTracker;
+    public GameGrid gameGrid;
 	// ~ Lower Content
 	public GameObject lowerMinMaxButton;
 	public GameObject removeTowerButton;
@@ -28,28 +29,28 @@ public class GUIManager : MonoBehaviour {
 	public float padding = 0.25f;	
 	public float timeToMinimize = 8.0f;
 	public float transitionSpeed = 0.13f;
+    public bool deleteState;
 
-	private bool cursorOnUI;
+    private bool cursorOnUI;
 	private bool minimized;
 	private bool minmaxPress;
 	private float minimizeTimer = 0.0f;
 	private Vector3 toolbarRectPos;
 	private Vector3 shopRectPos;
 	private Vector3 lowerMinMaxButtonPos;
-
-
+    
 	// Properties
 	public bool CursorOnUI {
 		get { return cursorOnUI; }
 		set { cursorOnUI = value; }
 	}
-
-
-	// Initialization
-	void Start () {
+    
+    // Initialization
+    void Start () {
 		buyingMachineGunNest = false;
 		screenRes = Screen.currentResolution;
 		cursorOnUI = false;
+        deleteState = false;
 		minimized = false;
 		minmaxPress = false;
 		shopRectTransf = shop.GetComponent<RectTransform>();
@@ -95,6 +96,19 @@ public class GUIManager : MonoBehaviour {
 	public void MinMaxPress () {
 		minmaxPress = true;
 	}
+
+    public void SetDeleteState()
+    {
+        if(deleteState)
+        {
+            deleteState = false;
+        }
+        else if(deleteState == false)
+        {
+            deleteState = true;
+        }
+        Debug.Log(deleteState);
+    }
 
 
 	// -- Minimize and Maximize Functions --------

@@ -4,40 +4,43 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour {
 
+    // Attributes
+
+    // Managers
+    GameManager gameManager;
+    private GUIManager guiManager;
+    private tempTowerManager towerManager;
+
+    // the grid
     public int width = 0;
     public int height = 0;
     public char[,] dataGrid;
-    public List<GameObject> blockList;
-    public GameObject grass;
-	public GameObject dirt;
-    private tempTowerManager towerMngr;
-    private GameObject selectedTile;
-    private GUIManager gUIManager;
+    public List<GameObject> blockList; // Keeps track of terrain grid objects
+    public List<GameObject> turretList; // Keeps track of turret objects
+    public char[] turretTypes; // Keeps track of turret types at selectedIndex location
+    public GameObject selectedTile; // Terrain object that is currently moused-over
+    public int selectedIndex; // Index of selectedTile in blockList
     private bool cancelPlacement;
+    // Prefabs
+    public GameObject grass;
+    public GameObject dirt;
+    public GameObject water;
+    public GameObject baseTent;
 
-    //access to the game manager
-    GameManager gameManager;
-
-	// Use this for initialization
-	void Start () {
-        //width = GameObject.Find("GameManager").GetComponent<GameManager>().width;
-        //height = GameObject.Find("GameManager").GetComponent<GameManager>().height;
-        //dataGrid = new char[width, height];
-        //grid = new GameObject[width, height];
-
-        // hold here until the width and height has been set
-        //while (width != 0 && height != 0)
-        //{
-        //	Debug.Log("waiting for height and width to be set");
-        //}
-        gUIManager = GameObject.FindGameObjectWithTag("InGameOverlay").GetComponent<GUIManager>();
-        gameManager = GameObject.Find("GameManager_Empty").GetComponent<GameManager>();
-        towerMngr = gameManager.GetComponent<tempTowerManager>();
+    // Use this for initialization
+    void Start ()
+    {
+        guiManager = GameObject.FindGameObjectWithTag("InGameOverlay").GetComponent<GUIManager>();
+        guiManager.gameGrid = this;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        towerManager = gameManager.GetComponent<tempTowerManager>();
+        //towerManager.gameGrid = this;
         selectedTile = null;
         width = gameManager.width;
         height = gameManager.height;
         dataGrid = gameManager.gridArray;
         cancelPlacement = false;
+        turretList = new List<GameObject>();
         
 		for(int i = 0; i < width; i++)
         {
@@ -56,10 +59,18 @@ public class GameGrid : MonoBehaviour {
 					default:
 						break;
 				}
+
+                // Populate turretList with empty indices
+                turretList.Add(null);
             }
         }
 
-        //Debug.Log("skipped instantiating the board");
+        turretTypes = new char[turretList.Count];
+
+        for (int i = 0; i < turretTypes.Length; i++)
+        {
+            turretTypes[i] = 'e'; // 'e' for empty position
+        }
 	}
 	
 	// Update is called once per frame
@@ -68,12 +79,12 @@ public class GameGrid : MonoBehaviour {
         CheckMouseClick();
 
         if (cancelPlacement) {
-            gUIManager.buyingMachineGunNest = false;
+            guiManager.buyingMachineGunNest = false;
             cancelPlacement = false;
         }
 	}
 
-    //Check to see if the mouse cursor is over a tile
+    // Check to see if the mouse cursor is over a tile
     void CheckMouseOver()
     {
         bool selected = false;
@@ -83,20 +94,23 @@ public class GameGrid : MonoBehaviour {
             Collider tileCollider = blockList[i].GetComponent<Collider>();
             RaycastHit hit;
 
-            if (tileCollider.Raycast(ray, out hit, 10.0f) && !gUIManager.CursorOnUI)
+            if (tileCollider.Raycast(ray, out hit, 10.0f) && !guiManager.CursorOnUI)
             {
-                if (gUIManager.buyingMachineGunNest && !cancelPlacement) {
+                if (guiManager.buyingMachineGunNest && !cancelPlacement)
+                {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1f, 0f, 0f)); // Can change this to like a transparent version of whatever asset we have for the turret
                     selected = true;
                     selectedTile = blockList[i];
+                    selectedIndex = i;
                 }
-                else {
+                else
+                {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
                     selected = true;
                     selectedTile = blockList[i];
+                    selectedIndex = i;
                 }
             }
-
             else
             {
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 0, 0));
@@ -110,17 +124,41 @@ public class GameGrid : MonoBehaviour {
 
     void CheckMouseClick()
     {
-        if (Input.GetMouseButtonDown(0) && selectedTile != null)
+        if (Input.GetMouseButtonDown(0) && selectedTile != null) // Check for left-click and that a tile is highlighted
         {
-            if (gUIManager.buyingMachineGunNest) 
+            if(guiManager.deleteState == true)
             {
-                towerMngr.towerList.Add(Instantiate(towerMngr.towerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+                Debug.Log("deleteState = " + guiManager.deleteState + " checkMouseClick");
+
+                GameObject.Destroy(turretList[selectedIndex]);
+                turretList.RemoveAt(selectedIndex);
+                turretTypes[selectedIndex] = 'e';
+
+                guiManager.deleteState = false;
+                return;
+            }
+            else if (guiManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
+            {
+                GameObject newTurret = Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity);
+                towerManager.towerList.Add(newTurret);
+                turretList[selectedIndex] = newTurret;
+                turretTypes[selectedIndex] = 't';
             }
         }
         if (Input.GetMouseButtonDown(1))
         {   
-            Debug.Log("Cancel");
+            // Debug.Log("Cancel");
             cancelPlacement = true;
         }
+        if (selectedTile != null && Input.GetMouseButtonDown(1))
+        {
+            //Debug.Log("Click");
+            towerManager.towerList.Add(Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+        }
+    }
+
+    public void RemoveTower()
+    {
+        
     }
 }
