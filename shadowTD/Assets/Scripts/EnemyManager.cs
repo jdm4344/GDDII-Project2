@@ -6,7 +6,7 @@ public class EnemyManager : MonoBehaviour {
 
     // attributes
 
-    int currentWave;
+    public int currentWave;
     // how many enemies are in the largest wave
     public int waveSize;
     // number of waves

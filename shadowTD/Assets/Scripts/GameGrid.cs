@@ -98,12 +98,12 @@ public class GameGrid : MonoBehaviour {
             {
                 if (guiManager.buyingMachineGunNest && !cancelPlacement)
                 {
-                    blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(1f, 0f, 0f)); // Can change this to like a transparent version of whatever asset we have for the turret
+                    blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
                     selected = true;
                     selectedTile = blockList[i];
                     selectedIndex = i;
                 }
-                else
+                else // Default yellow highlight
                 {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
                     selected = true;
@@ -143,6 +143,11 @@ public class GameGrid : MonoBehaviour {
                 towerManager.towerList.Add(newTurret);
                 turretList[selectedIndex] = newTurret;
                 turretTypes[selectedIndex] = 't';
+                gameManager.funds -= Prices.MachineGunNest;
+                if (gameManager.funds < Prices.MachineGunNest) {
+                    guiManager.buyingMachineGunNest = false;
+                }
+                
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -153,7 +158,7 @@ public class GameGrid : MonoBehaviour {
         if (selectedTile != null && Input.GetMouseButtonDown(1))
         {
             //Debug.Log("Click");
-            towerManager.towerList.Add(Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
+            //towerManager.towerList.Add(Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
         }
     }
 

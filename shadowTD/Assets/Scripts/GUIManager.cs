@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class GUIManager : MonoBehaviour {
 
+	// External References
+	public GameManager gameManager;
+	public GameGrid gameGrid;
+
 	// UI Element References
 	// ~ Upper Content
 	public GameObject statTracker;
-    public GameGrid gameGrid;
 	// ~ Lower Content
 	public GameObject lowerMinMaxButton;
 	public GameObject removeTowerButton;
@@ -55,6 +58,7 @@ public class GUIManager : MonoBehaviour {
 		minmaxPress = false;
 		shopRectTransf = shop.GetComponent<RectTransform>();
 		toolbarRectTransf = toolbar.GetComponent<RectTransform>();
+		gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 		StartCoroutine(LateStart(0.005f));
 	}
 	IEnumerator LateStart (float waitTime) {
@@ -72,6 +76,11 @@ public class GUIManager : MonoBehaviour {
 		else {
 			minimizeTimer = 0;
 		}
+
+		statTracker.GetComponentInChildren<Text>().text = 
+				"Wave: " + gameManager.enemyManager.currentWave + ", " +
+				//"Score: " + gameManager.score + ", " +
+				"Funds: " + gameManager.funds;
 	}
 
 	// Late Update
@@ -88,7 +97,7 @@ public class GUIManager : MonoBehaviour {
 	// -- Button Press Functions --------
 
 	public void MachineGunNestPurchase () { // Attempt to purchase (GameGrid will handle the remaining checks)
-		if (true/*Check if the player has enough money*/) {
+		if (gameManager.funds >= Prices.MachineGunNest) {
 			buyingMachineGunNest = true;
 		}
 	}
