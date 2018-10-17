@@ -18,8 +18,8 @@ public class GameGrid : MonoBehaviour {
     public List<GameObject> blockList; // Keeps track of terrain grid objects
     public List<GameObject> turretList; // Keeps track of turret objects
     public char[] turretTypes; // Keeps track of turret types at selectedIndex location
-    private GameObject selectedTile; // Terrain object that is currently moused-over
-    private int selectedIndex; // Index of selectedTile in blockList
+    public GameObject selectedTile; // Terrain object that is currently moused-over
+    public int selectedIndex; // Index of selectedTile in blockList
     private bool cancelPlacement;
     // Prefabs
     public GameObject grass;
@@ -31,8 +31,10 @@ public class GameGrid : MonoBehaviour {
     void Start ()
     {
         guiManager = GameObject.FindGameObjectWithTag("InGameOverlay").GetComponent<GUIManager>();
+        guiManager.gameGrid = this;
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         towerManager = gameManager.GetComponent<tempTowerManager>();
+        //towerManager.gameGrid = this;
         selectedTile = null;
         width = gameManager.width;
         height = gameManager.height;
@@ -67,7 +69,7 @@ public class GameGrid : MonoBehaviour {
 
         for (int i = 0; i < turretTypes.Length; i++)
         {
-            turretTypes[i] = 'e';
+            turretTypes[i] = 'e'; // 'e' for empty position
         }
 	}
 	
@@ -122,9 +124,20 @@ public class GameGrid : MonoBehaviour {
 
     void CheckMouseClick()
     {
-        if (Input.GetMouseButtonDown(0) && selectedTile != null)
+        if (Input.GetMouseButtonDown(0) && selectedTile != null) // Check for left-click and that a tile is highlighted
         {
-            if (guiManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
+            if(guiManager.deleteState == true)
+            {
+                Debug.Log("deleteState = " + guiManager.deleteState + " checkMouseClick");
+
+                GameObject.Destroy(turretList[selectedIndex]);
+                turretList.RemoveAt(selectedIndex);
+                turretTypes[selectedIndex] = 'e';
+
+                guiManager.deleteState = false;
+                return;
+            }
+            else if (guiManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
             {
                 GameObject newTurret = Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity);
                 towerManager.towerList.Add(newTurret);
@@ -142,5 +155,10 @@ public class GameGrid : MonoBehaviour {
             //Debug.Log("Click");
             towerManager.towerList.Add(Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity));
         }
+    }
+
+    public void RemoveTower()
+    {
+        
     }
 }

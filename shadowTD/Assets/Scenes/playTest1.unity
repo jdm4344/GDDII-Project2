@@ -477,6 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statTracker: {fileID: 0}
+  gameGrid: {fileID: 0}
   lowerMinMaxButton: {fileID: 367600323}
   removeTowerButton: {fileID: 0}
   toolbar: {fileID: 1331954317}
@@ -485,6 +486,7 @@ MonoBehaviour:
   timeToMinimize: 8
   transitionSpeed: 0.13
   padding: 0
+  deleteState: 0
 --- !u!1 &585276637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,6 +1049,7 @@ GameObject:
   - component: {fileID: 1445191772}
   - component: {fileID: 1445191771}
   - component: {fileID: 1445191770}
+  - component: {fileID: 1445191773}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -1111,7 +1114,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1445191771}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 579244505}
+        m_MethodName: SetDeleteState
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1445191771
@@ -1148,6 +1162,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1445191768}
   m_CullTransparentMesh: 0
+--- !u!114 &1445191773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1445191768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841c3fe7ac3173543863fa8ecc4ff902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1876492885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,7 +1517,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2077357862}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.32733333
+  m_Size: 0.32733336
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
