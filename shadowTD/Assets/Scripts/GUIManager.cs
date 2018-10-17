@@ -77,10 +77,10 @@ public class GUIManager : MonoBehaviour {
 			minimizeTimer = 0;
 		}
 
-		statTracker.GetComponentInChildren<Text>().text = 
-				"Wave: " + gameManager.enemyManager.currentWave + ", " +
-				//"Score: " + gameManager.score + ", " +
-				"Funds: " + gameManager.funds;
+		//statTracker.GetComponentInChildren<Text>().text = 
+		//		"Wave: " + gameManager.enemyManager.currentWave + ", " +
+		//		//"Score: " + gameManager.score + ", " +
+		//		"Funds: " + gameManager.funds;
 	}
 
 	// Late Update
