@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseTent : MonoBehaviour {
 
-    public int health;
+    public int health = 5;
 
     EnemyManager enemyManager;
 
