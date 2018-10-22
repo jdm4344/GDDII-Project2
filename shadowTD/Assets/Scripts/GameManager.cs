@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour {
     // enemy prefab types
 	public Vampire vampirePrefab;
 
+    //scene management
+    public GameObject sceneChanger;
+
     #endregion
 
     #region Map Generation
@@ -114,7 +117,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
+        {
+            sceneChanger.GetComponent<SceneChange>().EndGame();
+        }
 	}
 
     // called when an enemy is killed
