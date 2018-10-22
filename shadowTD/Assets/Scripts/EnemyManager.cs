@@ -9,8 +9,12 @@ public class EnemyManager : MonoBehaviour {
     public int currentWave;
     // how many enemies are in the largest wave
     public int waveSize;
-    // number of waves
+    // total number of waves
     public int waves;
+    // Is the game in an intermission?
+    private bool intermisison = true; // start the game paused
+    // Time remaining in intermission
+    public float intermissionTime = 60f;
     // char array of the enemies to spawn
     public char[,] enemySpawnArray;
 
@@ -24,14 +28,14 @@ public class EnemyManager : MonoBehaviour {
     // the time in between individual enemy spawns
     public float spawnCooldown;
     // the time since the last enemy spawn
-    float lastSpawn;
+    private float lastSpawn;
     // where to spawn the enemies
     public Vector3 spawnPoint;
 
     // total enemies in the wave
-    int totalEnemies;
+    private int totalEnemies;
     // lets us know when all enemies have been defeated
-    int enemiesDefeated;
+    private int enemiesDefeated;
     
     GameManager gameManager;
 
@@ -45,21 +49,46 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        lastSpawn += Time.deltaTime;
-        SpawnNextEnemy();
-        CheckWaveComplete();
-	}
-
-    // checks if all enemies are gone
-    void CheckWaveComplete()
-    {
-        if (enemySpawnQueue.Count == 0 && enemyList.Count == 0)
+        if (!intermisison)
         {
-            SetupWave();
+            lastSpawn += Time.deltaTime;
+            SpawnNextEnemy();
+            CheckWaveComplete();
+        }
+        else
+        {
+            intermissionTime -= Time.deltaTime;
+        }
+
+        // GetKeyDown is a placeholder check, replace with check for GUI button press to start next wave
+        if (intermissionTime <= 0 || Input.GetKeyDown(KeyCode.N)) 
+        {
+            SetWaveStart();
         }
     }
 
-    void SetupWave()
+    // checks if all enemies are gone
+    private void CheckWaveComplete()
+    {
+        if (enemySpawnQueue.Count == 0 && enemyList.Count == 0)
+        {
+            intermisison = true;
+        }
+    }
+
+    /// <summary>
+    /// Helper method - Updates conditions to begin a new wave
+    /// Executes when intermissionTime is less than 0 or GUI button
+    /// is pressed
+    /// </summary>
+    public void SetWaveStart()
+    {
+        intermisison = false;
+        intermissionTime = 60f;
+        SetupWave();
+    }
+
+    private void SetupWave()
     {
         currentWave++;
         if (currentWave > waves)
@@ -84,7 +113,7 @@ public class EnemyManager : MonoBehaviour {
     }
 
     // spawns the next enemy at the spawnPoint once the cooldown is over
-    void SpawnNextEnemy()
+    private void SpawnNextEnemy()
     {
         // check the cooldown and if all enemies have been spawned
         if (lastSpawn >= spawnCooldown && enemySpawnQueue.Count != 0 && enemyList.Count < maxEnemies)
