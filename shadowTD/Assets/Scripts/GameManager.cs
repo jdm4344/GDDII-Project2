@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour {
     // enemy prefab types
 	public Vampire vampirePrefab;
 
+    //scene management
+    public GameObject sceneChanger;
+
     #endregion
 
     #region Map Generation
@@ -87,6 +90,9 @@ public class GameManager : MonoBehaviour {
 
     #region GUI Variables
 
+    public GameObject Overlay;
+    public Transform textBox;
+
     #endregion
 
     Camera mainCamera;
@@ -94,6 +100,8 @@ public class GameManager : MonoBehaviour {
     private void Awake()
     {
         enemyManager = GetComponent<EnemyManager>();
+        Overlay = GameObject.Find("Overlay (In-Game)");
+        textBox = Overlay.transform.GetChild(3).GetChild(0);
         mainCamera = Camera.main;
     }
 
@@ -106,16 +114,26 @@ public class GameManager : MonoBehaviour {
 
 
         // hard coded base location
-        Instantiate(baseTentPrefab, new Vector3(5.0f + .5f, 9.0f + .5f, -.875f), Quaternion.identity);
+        Instantiate(baseTentPrefab, new Vector3(9.0f + .5f, 4.0f + .5f, -.875f), Quaternion.identity);
 
         SetupCamera();
+
+        funds = 40;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        //If base health falls to zero, you lose
+		if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
+        {
+            sceneChanger.GetComponent<SceneChange>().EndGame();
+        }
+
+        //Update score info
+        textBox.GetComponent<UnityEngine.UI.Text>().text = "Funds: " + funds + "\n" + "Time Until Next Wave: " + enemyManager.intermissionTime.ToString("F0");
+
+    }
 
     // called when an enemy is killed
     public void AddFunds(int income)

@@ -10,4 +10,14 @@ public class SceneChange : MonoBehaviour {
 	{
 		SceneManager.LoadScene("playTest1");
 	}
+
+    public void EndGame()
+    {
+        SceneManager.LoadScene("EndMenu");
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
