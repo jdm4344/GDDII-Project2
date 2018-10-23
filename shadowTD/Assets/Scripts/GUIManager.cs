@@ -100,25 +100,29 @@ public class GUIManager : MonoBehaviour {
 		if (gameManager.funds >= Prices.MachineGunNest) {
 			buyingMachineGunNest = true;
 		}
+		try {
+			Debug.Log(this.gameObject.GetComponentsInChildren<Text>().GetLength(0));
+		} catch (MissingComponentException e) {
+			Debug.Log("Error in MachineGunNesstPurchase() :\n" + e);
+		}
 	}
 
-	public void MinMaxPress () {
-		minmaxPress = true;
-	}
-
-    public void SetDeleteState()
+	public void ToggleDeleteState()
     {
-        if(deleteState)
+        if (deleteState)
         {
             deleteState = false;
         }
-        else if(deleteState == false)
+        else if (deleteState == false)
         {
             deleteState = true;
         }
         Debug.Log(deleteState);
     }
 
+	public void MinMaxPress () {
+		minmaxPress = true;
+	}
 
 	// -- Minimize and Maximize Functions --------
 
