@@ -22,7 +22,7 @@ public class Tower : MonoBehaviour {
     // length of burst
     public float burstLength;
     // child object
-    Renderer muzzleFlash;
+    public Transform muzzleFlash;
 
     // how much time has passed since the last shot
     public float timeSinceLastShot;
@@ -44,7 +44,7 @@ public class Tower : MonoBehaviour {
         direction = Vector3.forward;
         isShooting = false;
 
-        
+        muzzleFlash = this.gameObject.transform.GetChild(0);
     }
 	
 	// Update is called once per frame
@@ -119,6 +119,8 @@ public class Tower : MonoBehaviour {
             timeSinceLastShot = 0.0f;
             target.TakeDamage(damage);
             isShooting = true;
+
+            muzzleFlash.GetComponent<ParticleSystem>().Play();
         }
     }
 
