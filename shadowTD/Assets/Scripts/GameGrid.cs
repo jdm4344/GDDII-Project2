@@ -90,13 +90,19 @@ public class GameGrid : MonoBehaviour {
         bool selected = false;
         for (int i = 0; i < blockList.Count; i++)
         {
+            blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 0, 0));
+        }
+        List<GameObject> rayCastList = new List<GameObject>();
+        List<int> indexList = new List<int>();
+        for (int i = 0; i < blockList.Count; i++)
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Collider tileCollider = blockList[i].GetComponent<Collider>();
             RaycastHit hit;
 
             if (tileCollider.Raycast(ray, out hit, 10.0f) && !guiManager.CursorOnUI)
             {
-                if (guiManager.buyingMachineGunNest && !cancelPlacement)
+                /*if (guiManager.buyingMachineGunNest && !cancelPlacement)
                 {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
                     selected = true;
@@ -109,12 +115,40 @@ public class GameGrid : MonoBehaviour {
                     selected = true;
                     selectedTile = blockList[i];
                     selectedIndex = i;
-                }
+                }*/
+                rayCastList.Add(blockList[i]);
+                indexList.Add(i);
             }
             else
             {
                 blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0, 0, 0));
             }
+        }
+        GameObject selectedObj = null;
+        int selectIndex = 0;
+        for(int i = 0; i < rayCastList.Count; i++)
+        {
+            float distance = 10000.0f;
+
+            if(rayCastList[i].transform.position.y < distance)//Mathf.Abs(Vector3.Magnitude(rayCastList[i].transform.position - transform.position)) < distance)
+            {
+                selectedObj = rayCastList[i];
+                selectIndex = indexList[i];
+            }
+        }
+        if (guiManager.buyingMachineGunNest && !cancelPlacement)
+        {
+            selectedObj.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
+            selected = true;
+            selectedTile = blockList[selectIndex];
+            selectedIndex = selectIndex;
+        }
+        else // Default yellow highlight
+        {
+            blockList[selectIndex].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f));
+            selected = true;
+            selectedTile = blockList[selectIndex];
+            selectedIndex = selectIndex;
         }
         if (!selected)
         {

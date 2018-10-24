@@ -1069,7 +1069,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 6
   m_Depth: -1
   m_CullingMask:
@@ -1709,7 +1709,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2077357862}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.32733336
+  m_Size: 0.32733333
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

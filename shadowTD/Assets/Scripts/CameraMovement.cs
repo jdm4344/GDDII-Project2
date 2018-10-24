@@ -34,7 +34,7 @@ public class CameraMovement : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.S))
         {
-            if (position.y > 4)
+            if (position.y > 0)
             {
                 position.y -= 1 * Time.deltaTime;
             }
