@@ -87,11 +87,12 @@ public class GUIManager : MonoBehaviour {
 		string minutes = Mathf.Floor(gameManager.enemyManager.intermissionTime / 60).ToString("0");
 		string seconds = Mathf.RoundToInt(gameManager.enemyManager.intermissionTime % 60).ToString("00");
 		statTracker.GetComponentInChildren<Text>().text = 
-			"Wave: " + gameManager.enemyManager.currentWave + ", " +
-			"Time: " + minutes + ":" + seconds + ", " +
+			"Wave #: " + gameManager.enemyManager.currentWave + ", " +
+			"Next Wave In: " + minutes + ":" + seconds + ", " +
 			"Enemies: " + gameManager.enemyManager.maxEnemies + ", " +
-			"Funds: " + gameManager.funds;
-	}
+			"Funds: " + gameManager.funds + ", " +
+            "Base Health: " + gameManager.baseTentPrefab.GetComponent<BaseTent>().health;
+    }
 
 	// Late Update
 	void LateUpdate () {

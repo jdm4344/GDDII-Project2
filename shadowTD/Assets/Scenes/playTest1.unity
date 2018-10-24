@@ -499,7 +499,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.2033264}
   m_AnchorMax: {x: 0.72663474, y: 0.85167366}
-  m_AnchoredPosition: {x: 53.350006, y: -0.79999924}
+  m_AnchoredPosition: {x: 53.349976, y: -0.80000305}
   m_SizeDelta: {x: 88.8, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &158935937
@@ -1115,7 +1115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &863357212
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1194,8 +1194,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.27305093, g: 0.74510527, b: 0.9811321, a: 1}
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -1664,9 +1664,9 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: ~ Press 'N' to start the Next Wave ~
+  m_Text: "~ Press 'N' to start the Next Wave ~\n WASD To Move the Camera"
 --- !u!222 &1642124921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2394,7 +2394,7 @@ RectTransform:
   m_GameObject: {fileID: 2124177847}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0012863, y: 1.0012863, z: 1.0012863}
+  m_LocalScale: {x: 0.9884574, y: 1.0012863, z: 1.0012863}
   m_Children:
   - {fileID: 1642124919}
   m_Father: {fileID: 579244504}
@@ -2402,7 +2402,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.88000005}
   m_AnchorMax: {x: 0.5, y: 0.88000005}
-  m_AnchoredPosition: {x: 0, y: -289.6}
+  m_AnchoredPosition: {x: 0, y: -422}
   m_SizeDelta: {x: -20.450043, y: 33.700012}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2124177849
