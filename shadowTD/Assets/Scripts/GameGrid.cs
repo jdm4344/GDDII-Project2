@@ -136,7 +136,7 @@ public class GameGrid : MonoBehaviour {
                 selectIndex = indexList[i];
             }
         }
-        if (guiManager.buyingMachineGunNest && !cancelPlacement)
+        if (selectedObj != null && guiManager.buyingMachineGunNest && !cancelPlacement)
         {
             selectedObj.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
             selected = true;

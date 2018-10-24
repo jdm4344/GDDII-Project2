@@ -89,7 +89,8 @@ public class GUIManager : MonoBehaviour {
 		statTracker.GetComponentInChildren<Text>().text = 
 			"Wave: " + gameManager.enemyManager.currentWave + ", " +
 			"Time: " + minutes + ":" + seconds + ", " +
-			"Funds: " + gameManager.funds;
+			"Funds: " + gameManager.funds + " - " +
+            "Press 'N' to start next wave";
 	}
 
 	// Late Update
