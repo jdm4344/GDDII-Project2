@@ -123,8 +123,9 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        baseTentPrefab = GameObject.Find("BaseTentPrefab(Clone)");
         //If base health falls to zero, you lose
-		if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
+        if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
         {
             sceneChanger.GetComponent<SceneChange>().EndGame2();
         }

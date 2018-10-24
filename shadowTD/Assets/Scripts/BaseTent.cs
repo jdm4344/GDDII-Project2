@@ -31,7 +31,7 @@ public class BaseTent : MonoBehaviour {
             if ((enemyManager.enemyList[i].position - transform.position).sqrMagnitude < .25f * .25f)
             {
                 // base takes damage
-                TakeDamage();
+                this.TakeDamage();
                 // kill the enemy upon touching the base
                 enemyManager.enemyList[i].TakeDamage(999);
             }          
@@ -41,7 +41,7 @@ public class BaseTent : MonoBehaviour {
     void TakeDamage()
     {
         health -= 1;
-        if (health >= 0)
+        if (health <= 0)
         {
             // End the game
             Debug.Log("Game Over you lose");
