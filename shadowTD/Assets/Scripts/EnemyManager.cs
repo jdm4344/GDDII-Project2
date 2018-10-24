@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour {
 
     // attributes
+    GameManager gameManager;
 
     public int currentWave;
     // how many enemies are in the largest wave
@@ -37,19 +38,17 @@ public class EnemyManager : MonoBehaviour {
     // lets us know when all enemies have been defeated
     private int enemiesDefeated;
     
-    GameManager gameManager;
-
 	// Use this for initialization
 	void Start ()
     {
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		gameManager = GetComponent<GameManager>();
         currentWave = 0;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (!intermisison)
+        if (!intermisison && currentWave <= waves)
         {
             lastSpawn += Time.deltaTime;
             SpawnNextEnemy();
@@ -58,13 +57,13 @@ public class EnemyManager : MonoBehaviour {
         else
         {
             intermissionTime -= Time.deltaTime;
-        }
 
-        // GetKeyDown is a placeholder check, replace with check for GUI button press to start next wave
-        if (intermissionTime <= 0 || Input.GetKeyDown(KeyCode.N)) 
-        {
-            SetWaveStart();
-        }
+            // GetKeyDown is a placeholder check, replace with check for GUI button press to start next wave
+            if (intermissionTime <= 0 || Input.GetKeyDown(KeyCode.N))
+            {
+                SetWaveStart();
+            }
+        }        
     }
 
     // checks if all enemies are gone
