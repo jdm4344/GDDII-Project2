@@ -101,7 +101,6 @@ public class GameManager : MonoBehaviour {
     {
         enemyManager = GetComponent<EnemyManager>();
         Overlay = GameObject.Find("Overlay (In-Game)");
-        textBox = Overlay.transform.GetChild(3).GetChild(0);
         mainCamera = Camera.main;
     }
 
@@ -129,9 +128,6 @@ public class GameManager : MonoBehaviour {
         {
             sceneChanger.GetComponent<SceneChange>().EndGame();
         }
-
-        //Update score info
-        textBox.GetComponent<UnityEngine.UI.Text>().text = "Funds: " + funds + "\n" + "Time Until Next Wave: " + enemyManager.intermissionTime.ToString("F0");
 
     }
 

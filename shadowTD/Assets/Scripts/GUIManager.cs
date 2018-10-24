@@ -19,6 +19,13 @@ public class GUIManager : MonoBehaviour {
 	public GameObject toolbar;
 	private RectTransform shopRectTransf;
 	private RectTransform toolbarRectTransf;
+	// ~ Cursors
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Texture2D defaultCursor;
+	public Texture2D removalCursor;
+	public Texture2D placementCuror;
+	public Texture2D placementInvalidCursor;
+	private Vector2 hotSpot = new Vector2(10.0f, 6.0f);
 
 	// Screen Values
 	private Resolution screenRes;
@@ -77,10 +84,12 @@ public class GUIManager : MonoBehaviour {
 			minimizeTimer = 0;
 		}
 
-		//statTracker.GetComponentInChildren<Text>().text = 
-		//		"Wave: " + gameManager.enemyManager.currentWave + ", " +
-		//		//"Score: " + gameManager.score + ", " +
-		//		"Funds: " + gameManager.funds;
+		string minutes = Mathf.Floor(gameManager.enemyManager.intermissionTime / 60).ToString("0");
+		string seconds = Mathf.RoundToInt(gameManager.enemyManager.intermissionTime % 60).ToString("00");
+		statTracker.GetComponentInChildren<Text>().text = 
+			"Wave: " + gameManager.enemyManager.currentWave + ", " +
+			"Time: " + minutes + ":" + seconds + ", " +
+			"Funds: " + gameManager.funds;
 	}
 
 	// Late Update
@@ -94,10 +103,17 @@ public class GUIManager : MonoBehaviour {
 	}
 	
 
+	// -- Cursor Functionality
+	public void ResetCursor() {
+		Cursor.SetCursor(defaultCursor, hotSpot, cursorMode);
+	}
+
+
 	// -- Button Press Functions --------
 
 	public void MachineGunNestPurchase () { // Attempt to purchase (GameGrid will handle the remaining checks)
 		if (gameManager.funds >= Prices.MachineGunNest) {
+			Cursor.SetCursor(placementCuror, hotSpot, cursorMode);
 			buyingMachineGunNest = true;
 		}
 		try {
@@ -111,10 +127,12 @@ public class GUIManager : MonoBehaviour {
     {
         if (deleteState)
         {
+			ResetCursor();
             deleteState = false;
         }
         else if (deleteState == false)
         {
+			Cursor.SetCursor(removalCursor, hotSpot, cursorMode);
             deleteState = true;
         }
         Debug.Log(deleteState);

@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour {
     // Is the game in an intermission?
     private bool intermisison = true; // start the game paused
     // Time remaining in intermission
-    public float intermissionTime = 30.0f;
+    public float intermissionTime = 20.0f;
     // char array of the enemies to spawn
     public char[,] enemySpawnArray;
 
@@ -84,7 +84,7 @@ public class EnemyManager : MonoBehaviour {
     public void SetWaveStart()
     {
         intermisison = false;
-        intermissionTime = 30.0f;
+        intermissionTime = 20.0f;
         SetupWave();
     }
 

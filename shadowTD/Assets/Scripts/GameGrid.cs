@@ -134,6 +134,7 @@ public class GameGrid : MonoBehaviour {
                 turretList.RemoveAt(selectedIndex);
                 turretTypes[selectedIndex] = 'e';
 
+                guiManager.ResetCursor();
                 guiManager.deleteState = false;
                 return;
             }
@@ -145,6 +146,7 @@ public class GameGrid : MonoBehaviour {
                 turretTypes[selectedIndex] = 't';
                 gameManager.funds -= Prices.MachineGunNest;
                 if (gameManager.funds < Prices.MachineGunNest) {
+                    guiManager.ResetCursor();
                     guiManager.buyingMachineGunNest = false;
                 }
                 
@@ -154,6 +156,7 @@ public class GameGrid : MonoBehaviour {
         {   
             // Debug.Log("Cancel");
             cancelPlacement = true;
+            guiManager.ResetCursor();
         }
         if (selectedTile != null && Input.GetMouseButtonDown(1))
         {
