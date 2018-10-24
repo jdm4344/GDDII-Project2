@@ -238,7 +238,8 @@ public class GameManager : MonoBehaviour {
     // initial position of the main camera
     void SetupCamera()
     {
-        mainCamera.transform.position = new Vector3(width / 2, height / 2, -10);
+        mainCamera.transform.position = new Vector3(width / 2, height / 2, -5);
+        mainCamera.transform.Rotate(-25.0f, 0, 0);
         mainCamera.GetComponent<CameraMovement>().initPosition();
     }
 }
