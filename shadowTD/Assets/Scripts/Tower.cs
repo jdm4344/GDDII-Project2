@@ -58,7 +58,7 @@ public class Tower : MonoBehaviour {
 	}
 
     // updates the list of in range targets
-    void UpdateInRangeTargets()
+    protected void UpdateInRangeTargets()
     {
         Enemy current;
         // loop through all enemies on the field
@@ -80,7 +80,7 @@ public class Tower : MonoBehaviour {
     }
 
     // searches for the first vulnerable target in the list of in range targets, sets it to the current target
-    void UpdateTarget() {
+    protected void UpdateTarget() {
         for (int i = 0; i < inRangeEnemies.Count; i++)
         {
             if (inRangeEnemies[i].isVulnerable)
@@ -102,7 +102,7 @@ public class Tower : MonoBehaviour {
             //float angle = Vector3.Angle(-Vector3.right, direction);
             //transform.Rotate(0f, 0f, direction);
             //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.right = -direction;
+            this.transform.right = -direction;
             Attack();
         }
         else
