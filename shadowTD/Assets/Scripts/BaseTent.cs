@@ -28,7 +28,7 @@ public class BaseTent : MonoBehaviour {
     {
         for (int i = 0; i < enemyManager.enemyList.Count; i++)
         {
-            if ((enemyManager.enemyList[i].position - transform.position).sqrMagnitude < .25f * .25f)
+            if ((enemyManager.enemyList[i].position - transform.position).sqrMagnitude < .5f * .5f)
             {
                 // base takes damage
                 this.TakeDamage();
