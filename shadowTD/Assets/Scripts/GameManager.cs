@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour {
 
 
         // hard coded base location
-        Instantiate(baseTentPrefab, new Vector3(9.0f + .5f, 4.0f + .5f, -.875f), Quaternion.identity);
+        Instantiate(baseTentPrefab, new Vector3(19.0f + .5f, 4.0f + .5f, -.875f), Quaternion.identity);
 
         SetupCamera();
 
@@ -123,10 +123,11 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        baseTentPrefab = GameObject.Find("BaseTentPrefab(Clone)");
         //If base health falls to zero, you lose
-		if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
+        if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
         {
-            sceneChanger.GetComponent<SceneChange>().EndGame();
+            sceneChanger.GetComponent<SceneChange>().EndGame2();
         }
 
     }
@@ -148,7 +149,7 @@ public class GameManager : MonoBehaviour {
             enemyManager.enemySpawnArray = enemySpawnArray;
             enemyManager.maxEnemies = maxEnemies;
             enemyManager.spawnCooldown = spawnCooldown;
-            enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, -1);
+            enemyManager.spawnPoint = new Vector3(xSpawnPos + .5f, ySpawnPos + .5f, 0);
         }
     }
 
@@ -169,7 +170,7 @@ public class GameManager : MonoBehaviour {
             width = System.Convert.ToInt32(data);
 
             // make the array
-            gridArray = new char[width, height];
+            gridArray = new char[height, width];
 
             // get each line that is the grid data
             for (int i = 0; i < height; i++)
@@ -180,7 +181,8 @@ public class GameManager : MonoBehaviour {
                 for (int j = 0; j < width; j++)
                 {
 					gridArray[i, j] = data[j];
-
+                    string output = i.ToString() + " " + j.ToString();
+                    Debug.Log(output);
                 }
             }
 
@@ -238,7 +240,7 @@ public class GameManager : MonoBehaviour {
     // initial position of the main camera
     void SetupCamera()
     {
-        mainCamera.transform.position = new Vector3(width / 2, height / 2, -5);
+        mainCamera.transform.position = new Vector3(width / 2, (height / 2) - 3, -5);
         mainCamera.transform.Rotate(-25.0f, 0, 0);
         mainCamera.GetComponent<CameraMovement>().initPosition();
     }

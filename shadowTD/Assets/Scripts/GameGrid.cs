@@ -42,9 +42,9 @@ public class GameGrid : MonoBehaviour {
         cancelPlacement = false;
         turretList = new List<GameObject>();
         
-		for(int i = 0; i < width; i++)
+		for(int i = 0; i < height; i++)
         {
-            for (int j = 0; j < height; j++)
+            for (int j = 0; j < width; j++)
             {
 				switch (dataGrid[i, j])
 				{
@@ -101,7 +101,8 @@ public class GameGrid : MonoBehaviour {
             RaycastHit hit;
 
             if (tileCollider.Raycast(ray, out hit, 10.0f) && !guiManager.CursorOnUI)
-            {
+            {             
+
                 /*if (guiManager.buyingMachineGunNest && !cancelPlacement)
                 {
                     blockList[i].GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
@@ -174,7 +175,7 @@ public class GameGrid : MonoBehaviour {
             }
             else if (guiManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
             {
-                GameObject newTurret = Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, -1), Quaternion.identity);
+                GameObject newTurret = Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, 0.0f), Quaternion.identity);
                 towerManager.towerList.Add(newTurret);
                 turretList[selectedIndex] = newTurret;
                 turretTypes[selectedIndex] = 't';

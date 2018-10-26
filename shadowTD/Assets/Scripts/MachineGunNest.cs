@@ -12,7 +12,7 @@ public class MachineGunNest : Tower {
     // Use this for initialization
     protected override void Start () {
         base.Start();
-        damage = 3;
+        damage = 4;
         cooldown = .333f;
         burstLength = .167f;
         range = 9.0f;

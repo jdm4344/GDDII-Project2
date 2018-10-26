@@ -16,6 +16,11 @@ public class SceneChange : MonoBehaviour {
         SceneManager.LoadScene("EndMenu");
     }
 
+    public void EndGame2()
+    {
+        SceneManager.LoadScene("EndMenu2");
+    }
+
     public void RestartGame()
     {
         SceneManager.LoadScene("MainMenu");

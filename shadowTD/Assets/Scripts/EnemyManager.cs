@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour {
 
     // attributes
     GameManager gameManager;
+    GameObject sceneManager;
 
     public int currentWave;
     // how many enemies are in the largest wave
@@ -43,6 +44,7 @@ public class EnemyManager : MonoBehaviour {
     {
 		gameManager = GetComponent<GameManager>();
         currentWave = 0;
+        sceneManager = GameObject.Find("sceneManager");
     }
 	
 	// Update is called once per frame
@@ -94,6 +96,7 @@ public class EnemyManager : MonoBehaviour {
         {
             // This is when all waves have been defeated, end the game
             Debug.Log("Game Over You Win");
+            sceneManager.GetComponent<SceneChange>().EndGame();
         }
         else
         {
