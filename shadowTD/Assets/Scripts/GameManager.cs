@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour {
 
 
         // hard coded base location
-        Instantiate(baseTentPrefab, new Vector3(19.0f + .5f, 4.0f + .5f, -.875f), Quaternion.identity);
+        Instantiate(baseTentPrefab, new Vector3(19.0f + .5f, 4.0f + .5f, -0.3f), Quaternion.identity);
 
         SetupCamera();
 
