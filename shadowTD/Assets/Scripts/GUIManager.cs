@@ -34,6 +34,7 @@ public class GUIManager : MonoBehaviour {
 
 	// ~ Shop Purchase Checks
 	public bool buyingMachineGunNest;
+	public bool buyingFloodLight;
 	
 	// ~ UI Values
 	public float padding = 0.25f;	
