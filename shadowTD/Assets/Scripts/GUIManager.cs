@@ -150,7 +150,7 @@ public class GUIManager : MonoBehaviour {
 			Cursor.SetCursor(removalCursor, hotSpot, cursorMode);
             deleteState = true;
         }
-        Debug.Log(deleteState);
+        //Debug.Log("deleteState = " + deleteState);
     }
 
 	public void MinMaxPress () {
