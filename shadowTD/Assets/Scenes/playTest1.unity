@@ -1216,7 +1216,7 @@ Prefab:
     - target: {fileID: 114006304708458792, guid: d361be7bce36dee48aa1e6dc8a56f2f6,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MachineGunNestPurchase
+      value: FloodLightPurchase
       objectReference: {fileID: 0}
     - target: {fileID: 114006304708458792, guid: d361be7bce36dee48aa1e6dc8a56f2f6,
         type: 2}
@@ -1597,7 +1597,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Cost: $15'
+  m_Text: 'Cost: $20'
 --- !u!222 &1074325295
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2111,6 +2111,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1642124918}
   m_CullTransparentMesh: 0
+--- !u!1 &1723942023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1752943690064540, guid: a29c6042c7d63ed40ab336ed62420fa1,
+    type: 2}
+  m_PrefabInternal: {fileID: 941471500}
 --- !u!1 &1847659973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,6 +2286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   machineGunPrefab: {fileID: 1796460948627980, guid: e0d0ab3220acc9a4393c5806b7049d4d,
     type: 2}
+  floodLightPrefab: {fileID: 1723942023}
   towerList: []
 --- !u!1 &1906485065
 GameObject:

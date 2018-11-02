@@ -6,6 +6,7 @@ public class tempTowerManager : MonoBehaviour {
 
     // Variables
     public GameObject machineGunPrefab;
+    public GameObject floodLightPrefab;
     public List<GameObject> towerList;
     //public GameGrid gameGrid;
 

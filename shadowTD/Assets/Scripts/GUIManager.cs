@@ -126,6 +126,18 @@ public class GUIManager : MonoBehaviour {
 		}
 	}
 
+	public void FloodLightPurchase () {
+		if (gameManager.funds >= Prices.MachineGunNest) {
+			Cursor.SetCursor(placementCuror, hotSpot, cursorMode);
+			buyingFloodLight = true;
+		}
+		try {
+			Debug.Log(this.gameObject.GetComponentsInChildren<Text>().GetLength(0));
+		} catch (MissingComponentException e) {
+			Debug.Log("Error in FloodLightPurchase() :\n" + e);
+		}
+	}
+
 	public void ToggleDeleteState()
     {
         if (deleteState)

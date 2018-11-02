@@ -8,6 +8,6 @@ static class Prices {
 	public static int MachineGunNest = 12;
 
 	// Utility
-	public static int Floodlight = 10;
+	public static int Floodlight = 20;
 
 }

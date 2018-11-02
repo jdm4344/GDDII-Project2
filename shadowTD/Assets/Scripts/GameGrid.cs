@@ -80,6 +80,7 @@ public class GameGrid : MonoBehaviour {
 
         if (cancelPlacement) {
             guiManager.buyingMachineGunNest = false;
+            guiManager.buyingFloodLight = false;
             cancelPlacement = false;
         }
 	}
@@ -137,7 +138,7 @@ public class GameGrid : MonoBehaviour {
                 selectIndex = indexList[i];
             }
         }
-        if (selectedObj != null && guiManager.buyingMachineGunNest && !cancelPlacement)
+        if (selectedObj != null && (guiManager.buyingMachineGunNest || guiManager.buyingFloodLight) && !cancelPlacement)
         {
             selectedObj.GetComponent<Renderer>().material.SetColor("_EmissionColor", new Color(0.0f, 0.2f, 0.8f)); // Can change this to like a transparent version of whatever asset we have for the turret
             selected = true;
@@ -184,7 +185,18 @@ public class GameGrid : MonoBehaviour {
                     guiManager.ResetCursor();
                     guiManager.buyingMachineGunNest = false;
                 }
-                
+            }
+            else if (guiManager.buyingFloodLight && turretTypes[selectedIndex] == 'e') 
+            {
+                GameObject newTurret = Instantiate(towerManager.floodLightPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, 0.0f), Quaternion.identity);
+                towerManager.towerList.Add(newTurret);
+                turretList[selectedIndex] = newTurret;
+                turretTypes[selectedIndex] = 't';
+                gameManager.funds -= Prices.MachineGunNest;
+                if (gameManager.funds < Prices.Floodlight) {
+                    guiManager.ResetCursor();
+                    guiManager.buyingFloodLight = false;
+                }
             }
         }
         if (Input.GetMouseButtonDown(1))
