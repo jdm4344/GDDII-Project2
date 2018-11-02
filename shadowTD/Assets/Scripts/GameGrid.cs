@@ -160,31 +160,47 @@ public class GameGrid : MonoBehaviour {
     void CheckMouseClick()
     {
         if (Input.GetMouseButtonDown(0) && selectedTile != null) // Check for left-click and that a tile is highlighted
-        {
-            if(guiManager.deleteState == true)
+        {  
+            if (guiManager.deleteState == true && turretList[selectedIndex] != null)
             {
-                Debug.Log("deleteState = " + guiManager.deleteState + " checkMouseClick");
+                //Debug.Log("deleteState = " + guiManager.deleteState + " checkMouseClick");
+                //Debug.Log("Removing at: " + selectedIndex);
+                //Debug.Log("turretTypes[" + selectedIndex + "] = " + turretTypes[selectedIndex]);
+                //Debug.Log("turretList[" + selectedIndex + "] = " + turretList[selectedIndex]);
 
+                // Destroy object
                 GameObject.Destroy(turretList[selectedIndex]);
-                turretList.RemoveAt(selectedIndex);
+                // Remove from local list
+                turretList[selectedIndex] = null;
+                // Reset type at location
                 turretTypes[selectedIndex] = 'e';
 
+                gameManager.funds += Prices.MachineGunNest/2;
                 guiManager.ResetCursor();
                 guiManager.deleteState = false;
                 return;
             }
             else if (guiManager.buyingMachineGunNest && turretTypes[selectedIndex] == 'e') 
             {
+                // Create object
                 GameObject newTurret = Instantiate(towerManager.machineGunPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, 0.0f), Quaternion.identity);
+                // Add to external list
                 towerManager.towerList.Add(newTurret);
+                // Add to local lsit
                 turretList[selectedIndex] = newTurret;
+                // Change type at location
                 turretTypes[selectedIndex] = 't';
+
+                //Debug.Log("Placing at: " + selectedIndex);
+                //Debug.Log("turretTypes[" + selectedIndex + "] = " + turretTypes[selectedIndex]);
+                //Debug.Log("turretList[" + selectedIndex + "] = " + turretList[selectedIndex]);                
+
                 gameManager.funds -= Prices.MachineGunNest;
                 if (gameManager.funds < Prices.MachineGunNest) {
                     guiManager.ResetCursor();
                     guiManager.buyingMachineGunNest = false;
                 }
-                
+                return;
             }
         }
         if (Input.GetMouseButtonDown(1))

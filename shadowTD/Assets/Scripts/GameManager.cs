@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour {
                 {
 					gridArray[i, j] = data[j];
                     string output = i.ToString() + " " + j.ToString();
-                    Debug.Log(output);
+                    //Debug.Log(output);
                 }
             }
 
