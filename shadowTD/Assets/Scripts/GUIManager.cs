@@ -11,7 +11,11 @@ public class GUIManager : MonoBehaviour {
 
 	// UI Element References
 	// ~ Upper Content
-	public GameObject statTracker;
+	public GameObject statTracker1;
+	public GameObject statTracker2;
+	public GameObject statTracker3;
+	public GameObject statTracker4;
+	public GameObject statTracker5;
 	// ~ Lower Content
 	public GameObject lowerMinMaxButton;
 	public GameObject removeTowerButton;
@@ -87,11 +91,17 @@ public class GUIManager : MonoBehaviour {
 
 		string minutes = Mathf.Floor(gameManager.enemyManager.intermissionTime / 60).ToString("0");
 		string seconds = Mathf.RoundToInt(gameManager.enemyManager.intermissionTime % 60).ToString("00");
-		statTracker.GetComponentInChildren<Text>().text = 
-			"Wave #: " + gameManager.enemyManager.currentWave + ", " +
-			"Next Wave In: " + minutes + ":" + seconds + ", " +
-			"Enemies: " + gameManager.enemyManager.maxEnemies + ", " +
-			"Funds: " + gameManager.funds + ", " +
+		// Top Left of Screen
+		statTracker1.GetComponentInChildren<Text>().text = 
+			"Wave #: " + gameManager.enemyManager.currentWave;
+		statTracker2.GetComponentInChildren<Text>().text = 
+			"Next Wave In: " + minutes + ":" + seconds;
+		statTracker3.GetComponentInChildren<Text>().text = 
+			"Enemies: " + gameManager.enemyManager.maxEnemies;
+		// Top Right of Screen
+		statTracker4.GetComponentInChildren<Text>().text =
+			"Funds: " + gameManager.funds;
+		statTracker5.GetComponentInChildren<Text>().text =
             "Base Health: " + gameManager.baseTentPrefab.GetComponent<BaseTent>().health;
     }
 
