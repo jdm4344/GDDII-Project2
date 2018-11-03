@@ -38,6 +38,9 @@ public class EnemyManager : MonoBehaviour {
     private int totalEnemies;
     // lets us know when all enemies have been defeated
     private int enemiesDefeated;
+    public CursorMode cursorMode = CursorMode.Auto;
+	public Texture2D defaultCursor;
+	private Vector2 hotSpot = new Vector2(10.0f, 6.0f);
     
 	// Use this for initialization
 	void Start ()
@@ -96,6 +99,7 @@ public class EnemyManager : MonoBehaviour {
         {
             // This is when all waves have been defeated, end the game
             Debug.Log("Game Over You Win");
+            Cursor.SetCursor(defaultCursor, hotSpot, cursorMode);
             sceneManager.GetComponent<SceneChange>().EndGame();
         }
         else

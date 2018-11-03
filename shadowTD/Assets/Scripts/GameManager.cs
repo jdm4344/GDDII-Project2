@@ -93,6 +93,11 @@ public class GameManager : MonoBehaviour {
     public GameObject Overlay;
     public Transform textBox;
 
+
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Texture2D defaultCursor;
+	private Vector2 hotSpot = new Vector2(10.0f, 6.0f);
+
     #endregion
 
     Camera mainCamera;
@@ -127,6 +132,7 @@ public class GameManager : MonoBehaviour {
         //If base health falls to zero, you lose
         if (baseTentPrefab.GetComponent<BaseTent>().health <= 0)
         {
+            Cursor.SetCursor(defaultCursor, hotSpot, cursorMode);
             sceneChanger.GetComponent<SceneChange>().EndGame2();
         }
 

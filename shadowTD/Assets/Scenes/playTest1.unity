@@ -2508,6 +2508,8 @@ MonoBehaviour:
   funds: 0
   Overlay: {fileID: 0}
   textBox: {fileID: 0}
+  cursorMode: 0
+  defaultCursor: {fileID: 2800000, guid: 7f1623ab9650f1a44bfe17514ac32c85, type: 3}
 --- !u!4 &1876492887
 Transform:
   m_ObjectHideFlags: 0
@@ -2541,6 +2543,8 @@ MonoBehaviour:
   maxEnemies: 0
   spawnCooldown: 0
   spawnPoint: {x: 0, y: 0, z: 0}
+  cursorMode: 0
+  defaultCursor: {fileID: 2800000, guid: 7f1623ab9650f1a44bfe17514ac32c85, type: 3}
 --- !u!114 &1876492889
 MonoBehaviour:
   m_ObjectHideFlags: 0
